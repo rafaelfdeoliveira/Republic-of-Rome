@@ -1,0 +1,7 @@
+{
+  "name": "Republic of Rome",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
