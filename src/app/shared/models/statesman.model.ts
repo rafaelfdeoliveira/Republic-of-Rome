@@ -1,5 +1,7 @@
+import { getPositiveValue } from "../utilities/common.utility";
 import { Age } from "./age.model";
 import { FactionCard } from "./faction-card.model";
+import { Gracchus } from './gracchus.model';
 
 export class Statesman extends FactionCard {
 
@@ -25,12 +27,46 @@ export class Statesman extends FactionCard {
         super(id, name, age);
     }
 
-    public set influence(newInfluence: number) {
-        if (newInfluence < 0) {
-            this._influence = 0;
-            return;
+    public static Build(data: any): Statesman {
+        let statesman: Statesman;
+        if (data.familyId === 25) {
+            statesman = new Gracchus(
+                data.id,
+                data.name,
+                data.familyStatesmanId,
+                data.oratory,
+                data.baseInfluence,
+                data._popularity,
+                data.texts,
+                data.loyaltySubtitle
+            )
+        } else {
+            statesman = new Statesman(
+                data.id,
+                data.name,
+                data.age,
+                data.familyId,
+                data.familyStatesmanId,
+                data.military,
+                data.oratory,
+                data.loyalty,
+                data.baseInfluence,
+                data.texts,
+                data._popularity,
+                data.loyaltySubtitle,
+                data.opposingStatesmenCombinedIds
+            )
         }
-        this._influence = newInfluence
+
+        statesman.influence = data._influence;
+        statesman.knights = data._knights;
+        statesman.talents = data._talents;
+
+        return statesman;
+    }
+
+    public set influence(newInfluence: number) {
+        this._influence = getPositiveValue(newInfluence);
     }
 
     public get influence() {
@@ -42,11 +78,7 @@ export class Statesman extends FactionCard {
     }
 
     public set knights(newKnights: number) {
-        if (newKnights < 0) {
-            this._knights = 0;
-            return;
-        }
-        this._knights = newKnights;
+        this._knights = getPositiveValue(newKnights);
     }
 
     public get knights() {
@@ -54,11 +86,7 @@ export class Statesman extends FactionCard {
     }
 
     public set talents(newTalents: number) {
-        if (newTalents < 0) {
-            this._talents = 0;
-            return;
-        }
-        this._talents = newTalents;
+        this._talents = getPositiveValue(newTalents);
     }
 
     public get talents() {

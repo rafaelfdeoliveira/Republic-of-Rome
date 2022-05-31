@@ -11,8 +11,28 @@ export class EnemyLeader extends ForumCard {
         public readonly strength: number,
         public readonly disaster: number,
         public readonly standoff: number,
-        public readonly timePeriod: string
+        public readonly timePeriod: string,
+        public readonly specialTexts: string[] = []
     ) {
         super(id, name, age);
+    }
+
+    public static Build(data: any): EnemyLeader {
+        return new EnemyLeader(
+            data.id,
+            data.name,
+            data.age,
+            data.matchingWarsCommonName,
+            data.strength,
+            data.disaster,
+            data.standoff,
+            data.timePeriod,
+            data.specialTexts
+        );
+    }
+
+    public getStrengthenedWarsText() {
+        if (this.matchingWarsCommonName.endsWith('s')) return `Increase Strength of all ${this.matchingWarsCommonName}.`;
+        return `Increase Strength of ${this.matchingWarsCommonName}.`;
     }
 }

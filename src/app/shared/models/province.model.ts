@@ -1,34 +1,77 @@
+import { rollDice, getDiceRollFunctionByText, getLimitedPositiveValue } from "../utilities/common.utility";
+import { ProvinceName } from "./province-name.model";
+
 export class Province {
 
+    private readonly getUndevelopedProvincialSpoils: () => number;
+    private readonly getUndevelopedStateIncome: () => number;
+    private readonly getDevelopedProvincialSpoils: () => number;
+    private readonly getDevelopedStateIncome: () => number;
     private _provincialArmies: number = 0;
     private _provincialFleets: number = 0;
     private _garrisonLegions: number = 0
 
     constructor(
-        public readonly name: string,
+        public readonly name: ProvinceName,
         public readonly warsToDefendNames: string[],
         public readonly warsToDefendText: string,
-        private readonly _undevelopedLandStrength: number,
-        private readonly _undevelopedFleetStrength: number,
-        private readonly getUndevelopedProvincialSpoils: () => number,
-        private readonly getUndevelopedStateIncome: () => number,
-        private readonly _undevelopedLocalTaxes: number,
-        private readonly _undevelopedMaxProvincialArmies: number,
-        private readonly _undevelopedMaxProvincialFleets: number,
-        private readonly _undevelopedSubtitle: string,
-        private readonly _developedLandStrength: number,
-        private readonly _developedFleetStrength: number,
-        private readonly getDevelopedProvincialSpoils: () => number,
-        private readonly getDevelopedStateIncome: () => number,
-        private readonly _developedLocalTaxes: number,
-        private readonly _developedMaxProvincialArmies: number,
-        private readonly _developedMaxProvincialFleets: number,
-        private readonly _developedSubtitle: string = 'Developed by: 1d6 ≥ 6',
+        private readonly undevelopedLandStrength: number,
+        private readonly undevelopedFleetStrength: number,
+        private readonly undevelopedProvincialSpoilsText: string,
+        private readonly undevelopedStateIncomeText: string,
+        private readonly undevelopedLocalTaxes: number,
+        private readonly undevelopedMaxProvincialArmies: number,
+        private readonly undevelopedMaxProvincialFleets: number,
+        private readonly undevelopedSubtitle: string,
+        private readonly developedLandStrength: number,
+        private readonly developedFleetStrength: number,
+        private readonly developedProvincialSpoilsText: string,
+        private readonly developedStateIncomeText: string,
+        private readonly developedLocalTaxes: number,
+        private readonly developedMaxProvincialArmies: number,
+        private readonly developedMaxProvincialFleets: number,
+        private readonly developedSubtitle: string = 'Developed by: 1d6 ≥ 6',
         public isDevelopedProvince: boolean = false
-    ) {}
+    ) {
+        this.getUndevelopedProvincialSpoils = getDiceRollFunctionByText(undevelopedProvincialSpoilsText);
+        this.getUndevelopedStateIncome = getDiceRollFunctionByText(undevelopedStateIncomeText);
+        this.getDevelopedProvincialSpoils = getDiceRollFunctionByText(developedProvincialSpoilsText);
+        this.getDevelopedStateIncome = getDiceRollFunctionByText(developedStateIncomeText);
+    }
+
+    public static Build(data: any): Province {
+        const province = new Province(
+            data.name,
+            data.warsToDefendNames,
+            data.warsToDefendText,
+            data.undevelopedLandStrength,
+            data.undevelopedFleetStrength,
+            data.undevelopedProvincialSpoilsText,
+            data.undevelopedStateIncomeText,
+            data.undevelopedLocalTaxes,
+            data.undevelopedMaxProvincialArmies,
+            data.undevelopedMaxProvincialFleets,
+            data.undevelopedSubtitle,
+            data.developedLandStrength,
+            data.developedFleetStrength,
+            data.developedProvincialSpoilsText,
+            data.developedStateIncomeText,
+            data.developedLocalTaxes,
+            data.developedMaxProvincialArmies,
+            data.developedMaxProvincialFleets,
+            data.developedSubtitle,
+            data.isDevelopedProvince
+        );
+        
+        province.provincialArmies = data._provincialArmies;
+        province.provincialFleets = data._provincialFleets;
+        province.garrisonLegions = data._garrisonLegions;
+
+        return province;
+    }
 
     public set provincialArmies(newProvincialArmies: number) {
-        this._provincialArmies = this.getLimitedPositiveValue(newProvincialArmies, this.maxProvincialArmies);
+        this._provincialArmies = getLimitedPositiveValue(newProvincialArmies, this.maxProvincialArmies);
     }
 
     public get provincialArmies(): number {
@@ -36,7 +79,7 @@ export class Province {
     }
 
     public set provincialFleets(newProvincialFleets: number) {
-        this._provincialFleets = this.getLimitedPositiveValue(newProvincialFleets, this.maxProvincialFleets);
+        this._provincialFleets = getLimitedPositiveValue(newProvincialFleets, this.maxProvincialFleets);
     }
 
     public get provincialFleets(): number {
@@ -44,7 +87,7 @@ export class Province {
     }
 
     public set garrisonLegions(newGarrisonLegions: number) {
-        this._garrisonLegions = this.getLimitedPositiveValue(newGarrisonLegions, 25);
+        this._garrisonLegions = getLimitedPositiveValue(newGarrisonLegions, 25);
     }
 
     public get garrisonLegions(): number {
@@ -52,15 +95,23 @@ export class Province {
     }
 
     public get landStrength(): number {
-        return this.getCorrectProperty(this._developedLandStrength, this._undevelopedLandStrength);
+        return this.getCorrectProperty(this.developedLandStrength, this.undevelopedLandStrength);
     }
 
     public get fleetStrength(): number {
-        return this.getCorrectProperty(this._developedFleetStrength, this._undevelopedFleetStrength);
+        return this.getCorrectProperty(this.developedFleetStrength, this.undevelopedFleetStrength);
+    }
+
+    public get provincialSpoilsText(): string {
+        return this.getCorrectProperty(this.developedProvincialSpoilsText, this.undevelopedProvincialSpoilsText);
     }
 
     public getProvincialSpoils(): number {
         return this.getCorrectProperty(this.getDevelopedProvincialSpoils, this.getUndevelopedProvincialSpoils).call(this);
+    }
+
+    public get stateIncomeText(): string {
+        return this.getCorrectProperty(this.developedStateIncomeText, this.undevelopedStateIncomeText);
     }
 
     public getStateIncome(): number {
@@ -68,25 +119,27 @@ export class Province {
     }
 
     public get localTaxes(): number {
-        return this.getCorrectProperty(this._developedLocalTaxes, this._undevelopedLocalTaxes);
+        return this.getCorrectProperty(this.developedLocalTaxes, this.undevelopedLocalTaxes);
     }
 
     public get maxProvincialArmies(): number {
-        return this.getCorrectProperty(this._developedMaxProvincialArmies, this._undevelopedMaxProvincialArmies);
+        return this.getCorrectProperty(this.developedMaxProvincialArmies, this.undevelopedMaxProvincialArmies);
     }
 
     public get maxProvincialFleets(): number {
-        return this.getCorrectProperty(this._developedMaxProvincialFleets, this._undevelopedMaxProvincialFleets);
+        return this.getCorrectProperty(this.developedMaxProvincialFleets, this.undevelopedMaxProvincialFleets);
     }
 
     public get subtitle(): string {
-        return this.getCorrectProperty(this._developedSubtitle, this._undevelopedSubtitle);
+        return this.getCorrectProperty(this.developedSubtitle, this.undevelopedSubtitle);
     }
 
-    private getLimitedPositiveValue(proposedValue: number, maxAllowedValue: number): number {
-        if (proposedValue < 0) return 0;
-        if (proposedValue > maxAllowedValue) return maxAllowedValue;
-        return proposedValue;
+    public tryToDevelopProvince(isGovernorCorrupt: boolean = true): boolean {
+        if (this.isDevelopedProvince) return false;
+        let roll = rollDice();
+        if (!isGovernorCorrupt) roll++;
+        if (roll >= 6) this.isDevelopedProvince = true;
+        return this.isDevelopedProvince;
     }
 
     private getCorrectProperty<T>(developedProperty: T, undevelopedProperty: T): T {

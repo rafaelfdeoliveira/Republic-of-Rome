@@ -1,3 +1,4 @@
+import { getPositiveValue } from "../utilities/common.utility";
 import { Age } from "./age.model";
 import { ForumCard } from "./forum-card.model";
 
@@ -12,7 +13,7 @@ export class Family extends ForumCard {
         id: number,
         name: string,
         age: Age,
-        public readonly FamilyId: number,
+        public readonly familyId: number,
         public readonly military: number,
         public readonly oratory: number,
         public readonly loyalty: number,
@@ -22,12 +23,29 @@ export class Family extends ForumCard {
         super(id, name, age);
     }
 
+    public static Build(data: any): Family {
+        const family = new Family(
+            data.id,
+            data.name,
+            data.age,
+            data.familyId,
+            data.military,
+            data.oratory,
+            data.loyalty,
+            data.baseInfluence,
+            data.MatchingStatesmanExists
+        )
+
+        family.popularity = data._popularity;
+        family.influence = data._influence;
+        family.knights = data._knights;
+        family.talents = data._talents;
+
+        return family;
+    }
+
     public set influence(newInfluence: number) {
-        if (newInfluence < 0) {
-            this._influence = 0;
-            return;
-        }
-        this._influence = newInfluence;
+        this._influence = getPositiveValue(newInfluence);
     }
 
     public get influence() {
@@ -39,11 +57,7 @@ export class Family extends ForumCard {
     }
 
     public set knights(newKnights: number) {
-        if (newKnights < 0) {
-            this._knights = 0;
-            return;
-        }
-        this._knights = newKnights;
+        this._knights = getPositiveValue(newKnights);
     }
 
     public get knights() {
@@ -51,11 +65,7 @@ export class Family extends ForumCard {
     }
 
     public set talents(newTalents: number) {
-        if (newTalents < 0) {
-            this._talents = 0;
-            return;
-        }
-        this._talents = newTalents;
+        this._talents = getPositiveValue(newTalents);
     }
 
     public get talents() {

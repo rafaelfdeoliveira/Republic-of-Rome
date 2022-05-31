@@ -7,8 +7,19 @@ export class Law extends FactionCard {
         id: number,
         name: string,
         age: Age,
-        public readonly texts: string[]
+        public readonly lawTexts: string[],
+        public readonly advancedLawTexts: string[] = []
     ) {
         super(id, name, age)
+    }
+
+    public static Build(data: any): Law {
+        return new Law(
+            data.id,
+            data.name,
+            data.age,
+            data.lawTexts,
+            data.advancedLawTexts
+        );
     }
 }
