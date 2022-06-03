@@ -3,7 +3,6 @@ export enum ProvinceName {
     AFRICA = 'Africa',
     ASIA = 'Asia',
     BITHYNIA = 'Bithynia',
-    BITHYNIA_PONTUS = 'Bithinia-Pontus',
     CILICIA_ET_CYPRUS = 'Cilicia et Cyprus',
     CRETA_ET_CYRENAICA = 'Creta et Cyrenaica',
     GALLIA_CISALPINA = 'Gallia Cisalpina',

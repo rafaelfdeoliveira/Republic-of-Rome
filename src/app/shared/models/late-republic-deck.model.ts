@@ -135,7 +135,7 @@ export const lateRepublicDeck: Card[] = [
         '74 - 63 BC',
         'Mithridatic Wars',
         [112, 113],
-        [ProvinceName.SYRIA, ProvinceName.BITHYNIA_PONTUS],
+        [ProvinceName.SYRIA, ProvinceName.BITHYNIA],
         [ProvinceName.SYRIA, ProvinceName.ASIA],
         true
     ),

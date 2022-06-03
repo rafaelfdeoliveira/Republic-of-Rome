@@ -6,23 +6,14 @@ export const rollDice = (numberOfDice: number = 1): number => {
     return sum;
 }
 
-export const getDiceRollFunctionByText = (text: string): () => number {
-    switch(text.length) {
-        case 7: {
-            if (text[4] === '+') return () => rollDice(+text[0]) + +text[6];
-            return () => rollDice(+text[0]) - +text[6];
-        }
-        case 8: {
-            if (text[5] === '+') return () => - rollDice(+text[1]) + +text[7];
-            return () => - rollDice(+text[1]) - +text[7];
-        }
-        case 4:
-            return () => - rollDice(+text[1]);
-        case 3:
-            return () => rollDice(+text[0]);
-        default:
-            throw new Error('Invalid dice roll function text');
-    }
+export const getDiceRollFunctionByText = (text: string): () => number => {
+    if (/^[1-9][dD]6 [+] [1-9]$/g.test(text)) return () => rollDice(+text[0]) + +text[6];
+    if (/^[1-9][dD]6 - [1-9]$/g.test(text)) return () => rollDice(+text[0]) - +text[6];
+    if (/^-[1-9][dD]6 [+] [1-9]$/g.test(text)) return () => - rollDice(+text[1]) + +text[7];
+    if (/^-[1-9][dD]6 - [1-9]$/g.test(text)) return () => - rollDice(+text[1]) - +text[7];
+    if (/^[1-9][dD]6$/g.test(text)) return () => rollDice(+text[0]);
+    if (/^-[1-9][dD]6$/g.test(text)) return () => - rollDice(+text[1]);
+    throw new Error(`Invalid dice roll function text: ${text}`);
 }
 
 export const getPositiveValue = (proposedValue: number): number => {

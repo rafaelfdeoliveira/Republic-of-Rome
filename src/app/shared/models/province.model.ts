@@ -13,8 +13,8 @@ export class Province {
 
     constructor(
         public readonly name: ProvinceName,
+        public readonly isFrontierProvince: boolean,
         public readonly warsToDefendNames: string[],
-        public readonly warsToDefendText: string,
         private readonly undevelopedLandStrength: number,
         private readonly undevelopedFleetStrength: number,
         private readonly undevelopedProvincialSpoilsText: string,
@@ -42,8 +42,8 @@ export class Province {
     public static Build(data: any): Province {
         const province = new Province(
             data.name,
+            data.isFrontierProvince,
             data.warsToDefendNames,
-            data.warsToDefendText,
             data.undevelopedLandStrength,
             data.undevelopedFleetStrength,
             data.undevelopedProvincialSpoilsText,
