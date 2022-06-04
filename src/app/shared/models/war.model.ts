@@ -26,7 +26,7 @@ export class War extends ForumCard {
         super(id, name, age);
     }
 
-    public static Build(data: any): ForumCard {
+    public static Build(data: any): War {
         return new War(
             data.id,
             data.name,
@@ -45,7 +45,7 @@ export class War extends ForumCard {
             data.armamentIcon,
             data.droughtIcon,
             data.revoltedProvinces
-        )
+        );
     }
 
     public getWarNumber(): number {

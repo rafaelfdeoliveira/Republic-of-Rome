@@ -5,6 +5,8 @@ import { Gracchus } from './gracchus.model';
 
 export class Statesman extends FactionCard {
 
+    public loyalLegionsNumbers: number[] = [];
+
     private _influence: number = this.baseInfluence;
     private _knights: number = 0;
     private _talents: number = 0;
@@ -58,6 +60,7 @@ export class Statesman extends FactionCard {
             )
         }
 
+        statesman.loyalLegionsNumbers = data.loyalLegionsNumbers;
         statesman.influence = data._influence;
         statesman.knights = data._knights;
         statesman.talents = data._talents;

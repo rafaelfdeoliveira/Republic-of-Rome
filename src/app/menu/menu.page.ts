@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,11 +7,6 @@ import { Router } from '@angular/router';
 })
 export class MenuPage {
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() {}
 
-  public toSoloGame() {
-    this.router.navigate(['/solo-game']);
-  }
 }

@@ -4,6 +4,8 @@ import { ForumCard } from "./forum-card.model";
 
 export class Family extends ForumCard {
 
+    public loyalLegionsNumbers: number[] = [];
+
     private _popularity: number = 0;
     private _influence: number = this.baseInfluence;
     private _knights: number = 0;
@@ -35,7 +37,8 @@ export class Family extends ForumCard {
             data.baseInfluence,
             data.MatchingStatesmanExists
         )
-
+        
+        family.loyalLegionsNumbers = data.loyalLegionsNumbers;
         family.popularity = data._popularity;
         family.influence = data._influence;
         family.knights = data._knights;

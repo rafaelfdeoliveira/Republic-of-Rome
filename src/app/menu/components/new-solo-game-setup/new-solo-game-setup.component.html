@@ -1,0 +1,16 @@
+<ion-content class="menu-content">
+    <div>
+        <h1>New Solo Game</h1>
+        <h2>Choose a Scenario</h2>
+    </div>
+    <div>
+        <ion-button
+            *ngFor="let scenario of scenariosList"
+            shape="round"
+            fill="outline"
+            (click)="createNewSoloGame(scenario)"
+        >
+            {{scenario}}
+        </ion-button>
+    </div>
+</ion-content>
