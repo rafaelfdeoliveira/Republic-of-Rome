@@ -4,6 +4,9 @@ import { ProvinceName } from "./province-name.model";
 
 export class War extends ForumCard {
 
+    public readonly warNumber: number;
+    public readonly maxWarNumber: number;
+
     constructor(
         id: number,
         name: string,
@@ -24,6 +27,8 @@ export class War extends ForumCard {
         public readonly revoltedProvinces: ProvinceName[] = []
     ) {
         super(id, name, age);
+        this.warNumber = this.getWarNumber();
+        this.maxWarNumber = this.matchingWarsIds.length + 1;
     }
 
     public static Build(data: any): War {
@@ -48,10 +53,9 @@ export class War extends ForumCard {
         );
     }
 
-    public getWarNumber(): number {
+    private getWarNumber(): number {
         const orderedMatchingWarsIds = [...this.matchingWarsIds, this.id].sort();
         return orderedMatchingWarsIds.indexOf(this.id) + 1;
     }
 
-    
 }

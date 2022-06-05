@@ -3,36 +3,53 @@ import { War } from './war.model';
 
 export class WarSet {
 
-    constructor(
-        private _wars: War[] = [],
-        private _leaders: EnemyLeader[] = []
-    ) {}
+    public firstWar: War | null = null;
+    public secondWar: War | null = null;
+    public thirdWar: War | null = null;
+    public fourthWar: War | null = null;
+    public firstLeader: EnemyLeader | null = null;
+    public secondLeader: EnemyLeader | null = null;
+
+    constructor() {}
 
     public static Build(data: any): WarSet {
-        return new WarSet(
-            data.wars.map(war => War.Build(war)),
-            data.leaders.map(leader => EnemyLeader.Build(leader))
-        );
+        const warSet = new WarSet();
+        if (data.firstWar) warSet.firstWar = War.Build(data.firstWar);
+        if (data.secondWar) warSet.secondWar = War.Build(data.secondWar);
+        if (data.thirdWar) warSet.thirdWar = War.Build(data.thirdWar);
+        if (data.fourthWar) warSet.fourthWar = War.Build(data.fourthWar);
+        if (data.firstLeader) warSet.firstLeader = EnemyLeader.Build(data.firstLeader);
+        if (data.secondLeader) warSet.secondLeader = EnemyLeader.Build(data.secondLeader);
+        return warSet;
     }
 
-    public set wars(newWars: War[]) {
-        if (newWars.length >= 4) throw new Error('Maximum of 4 wars in War Set');
-        this._wars = newWars
-        this._wars.sort((war1, war2) => {
-            return war1.id - war2.id;
-        });
+    public addNewWar(newWar: War) {
+        switch(newWar.warNumber) {
+            case 1:
+                this.firstWar = newWar;
+                return;
+            case 2:
+                this.secondWar = newWar;
+                return;
+            case 3:
+                this.thirdWar = newWar;
+                return;
+            case 4:
+                this.fourthWar = newWar;
+                return;
+            default:
+                throw new Error(`${newWar.name} has an invalid war number`);
+        }
     }
 
-    public get wars() {
-        return this._wars;
+    public addNewEnemyLeader(newEnemyLeader: EnemyLeader) {
+        if (this.firstLeader) {
+            this.secondLeader = newEnemyLeader;
+            return;
+        }
+
+        this.firstLeader = newEnemyLeader;
     }
 
-    public set leaders(newLeaders: EnemyLeader[]) {
-        if (newLeaders.length >= 2) throw new Error('Maximum of 2 enemy leaders in War Set');
-        this._leaders = newLeaders;
-    }
 
-    public get leaders() {
-        return this._leaders;
-    }
 }
