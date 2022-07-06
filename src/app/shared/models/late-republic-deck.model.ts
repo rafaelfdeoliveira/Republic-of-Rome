@@ -17,7 +17,7 @@ import { Statesman } from "./statesman.model";
 import { Tribune } from "./tribune.model";
 import { War } from "./war.model";
 
-export const lateRepublicDeck: Card[] = [
+export const getLateRepublicDeck = (): Card[] => [
     new War(
         112,
         '1st Mithridatic War',

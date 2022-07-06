@@ -16,7 +16,7 @@ import { Statesman } from "./statesman.model";
 import { Tribune } from "./tribune.model";
 import { War } from "./war.model";
 
-export const middleRepublicDeck: Card[] = [
+export const getMiddleRepublicDeck = (): Card[] => [
     new War(
         71,
         '1st Cilician Pirates',

@@ -13,7 +13,7 @@ import { Statesman } from "./statesman.model";
 import { Tribune } from "./tribune.model";
 import { War } from "./war.model";
 
-export const earlyRepublicDeck: Card[] = [
+export const getEarlyRepublicDeck = (): Card[] => [
     new War(
         5,
         '1st Gallic War',

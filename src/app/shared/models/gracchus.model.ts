@@ -9,11 +9,11 @@ export class Gracchus extends Statesman {
         familyStatesmanId: number,
         oratory: number,
         baseInfluence: number,
-        popularity: number,
+        basePopularity: number,
         texts: string[],
         loyaltySubtitle: string
     ) {
-        super(id, name, Age.MIDDLE_REPUBLIC, 25, familyStatesmanId, 1, oratory, 6, baseInfluence, texts, popularity, loyaltySubtitle)
+        super(id, name, Age.MIDDLE_REPUBLIC, 25, familyStatesmanId, 1, oratory, 6, baseInfluence, texts, basePopularity, loyaltySubtitle);
     }
 
     public getLoyalty(statesmenInPersuasingFaction: Statesman[]): number {

@@ -1,7 +1,7 @@
 import { ProvinceName } from "./province-name.model";
 import { Province } from "./province.model";
 
-export const provincesDek: Province[] = [
+export const getProvincesDeck = (): Province[] => [
     new Province(
         ProvinceName.AEGYPTUS,
         false,
