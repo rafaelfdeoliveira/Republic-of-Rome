@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Scenario } from 'src/app/shared/models/scenario.model';
 import { SoloGameService } from 'src/app/shared/services/solo-game.service';
 
@@ -20,13 +22,44 @@ export class NewSoloGameSetupComponent {
   ]
 
   constructor(
+    private router: Router,
+    private alertCtrl: AlertController,
     private soloGameService: SoloGameService,
   ) {}
 
-  public createNewSoloGame(scenario: Scenario) {
-    
+  public async createNewSoloGame(scenario: Scenario) {
+    const alert = await this.alertCtrl.create({
+      header: 'Enter your name',
+      keyboardClose: false,
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
 
-    this.soloGameService.prepareScenario(scenario);
+          text: 'Start Game',
+          handler: data => {
+            if (data.playerName.trim()) {
+              this.soloGameService.prepareScenario(scenario, data.playerName.trim());
+              return true;
+            }
+            return false;
+          }
+        }
+      ],
+      inputs: [{
+        name: 'playerName',
+        placeholder: 'Player name...',
+        attributes: { maxlength: 10 },
+      }]
+    });
 
+    await alert.present();
+    const { role } = await alert.onWillDismiss();
+    if (role !== 'cancel') {
+      this.router.navigate(['/game']);
+    }
   }
 }

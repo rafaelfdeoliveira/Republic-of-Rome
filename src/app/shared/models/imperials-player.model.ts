@@ -1,11 +1,10 @@
 import { CharityGuideline } from "./charity-guideline.model";
-import { NeutralAI } from "./neutral-AI.model";
 import { NeutralPlayer } from "./neutral-player.model";
 import { SpoilsGuideline } from "./spoils-guideline.model";
 import { shuffle } from 'lodash';
 import { rollDice } from "../utilities/common.utility";
 
-export class ImperialsPlayer extends NeutralPlayer implements NeutralAI {
+export class ImperialsPlayer extends NeutralPlayer {
 
     constructor() {
         super(

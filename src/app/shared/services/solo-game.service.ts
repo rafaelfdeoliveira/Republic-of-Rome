@@ -57,8 +57,8 @@ export class SoloGameService {
   private _type1LandBillsNum: number;
   private _type2LandBillsNum: number;
   private _type3LandBillsNum: number;
-  private _loadedScenario: Scenario;
-  
+  private _scenario: Scenario;
+
   constructor() {}
 
   public get stateTreasury() {
@@ -109,17 +109,17 @@ export class SoloGameService {
     return [this.conservativesPlayer, this.imperialsPlayer, this.plutocratsPlayer, this.populistsPlayer];
   }
 
-  public get loadedScenario(): Scenario {
-    return this._loadedScenario;
+  public get scenario(): Scenario {
+    return this._scenario;
   }
 
-  private set loadedScenario(scenario: Scenario) {
-    this._loadedScenario = scenario;
+  private set scenario(scenario: Scenario) {
+    this._scenario = scenario;
   }
 
-  public prepareScenario(scenario: Scenario) {
-    this.resetGame();
-    this.loadedScenario = scenario;
+  public prepareScenario(scenario: Scenario, playerName: string) {
+    this.resetGame(playerName);
+    this.scenario = scenario;
 
     switch(scenario) {
       case Scenario.EARLY_REPUBLIC:
@@ -207,7 +207,7 @@ export class SoloGameService {
   private distributeFamilyCards(familyCards: Family[], familiesPerPlayer: number) {
     this.humanPlayer.senators = this.extractSenatorSets(familyCards, familiesPerPlayer);
 
-    const neutralsSenatorsSets = new Array(4).map(() => this.extractSenatorSets(familyCards, familiesPerPlayer))
+    const neutralsSenatorsSets = new Array(4).fill('').map(() => this.extractSenatorSets(familyCards, familiesPerPlayer));
     neutralsSenatorsSets.sort((set1, set2) => {
       return this.getTotalMilitaryRating(set1) - this.getTotalMilitaryRating(set2);
     });
@@ -234,17 +234,16 @@ export class SoloGameService {
   }
 
   private assignTemporaryRomeConsul() {
-    this.plutocratsPlayer.mostInfluentialSenator.majorOffice = this.availableMajorOffices.find((office) => {
+    const mostInfluentialPlutocratSenator =  this.plutocratsPlayer.mostInfluentialSenator;
+    mostInfluentialPlutocratSenator.majorOffice = this.availableMajorOffices.find((office) => {
       return office.rank === 2;
     })
+    mostInfluentialPlutocratSenator.influence += 5;
     this.availableMajorOffices = this.availableMajorOffices.filter((office) => office.rank !== 2);
   }
 
   private assignNeutralsFactionLeaders() {
-    this.conservativesPlayer.chooseFactionLeader();
-    this.imperialsPlayer.chooseFactionLeader();
-    this.plutocratsPlayer.chooseFactionLeader();
-    this.populistsPlayer.chooseFactionLeader();
+    this.neutralPlayers.forEach(player => player.chooseFactionLeader());
   }
 
   private getTotalMilitaryRating(senators: SenatorSet[]): number {
@@ -284,9 +283,8 @@ export class SoloGameService {
     });
   }
 
-  private resetGame() {
-    this.loadedScenario = null;
-    this.humanPlayer = new HumanPlayer('Player');
+  private resetGame(playerName: string = 'Player') {
+    this.humanPlayer = new HumanPlayer(playerName);
     this.conservativesPlayer = new ConservativesPlayer();
     this.imperialsPlayer = new ImperialsPlayer();
     this.plutocratsPlayer = new PlutocratsPlayer();
@@ -312,6 +310,7 @@ export class SoloGameService {
     this.type1LandBillsNum = 0;
     this.type2LandBillsNum = 0;
     this.type3LandBillsNum = 0;
+    this.scenario = null;
   }
 
 }

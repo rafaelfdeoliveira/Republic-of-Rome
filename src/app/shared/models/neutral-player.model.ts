@@ -1,12 +1,7 @@
 import { shuffle } from "lodash";
 import { CharityGuideline } from "./charity-guideline.model";
 import { Concession } from "./concession.model";
-import { ConservativesPlayer } from "./conservatives-player.model";
-import { FactionCard } from "./faction-card.model";
-import { ImperialsPlayer } from "./imperials-player.model";
 import { Player } from "./player.model";
-import { PlutocratsPlayer } from './plutocrats-player.model';
-import { PopulistsPlayer } from "./populists-player.model";
 import { SenatorSet } from "./senator-set.model";
 import { SpoilsGuideline } from "./spoils-guideline.model";
 
@@ -22,32 +17,9 @@ export abstract class NeutralPlayer extends Player {
         super(name);
     }
 
-    public static Build(data: any): NeutralPlayer {
-        let neutralPlayer: NeutralPlayer;
-        switch(data.name) {
-            case 'Conservatives':
-                neutralPlayer = new ConservativesPlayer();
-                break;
-            case 'Imperials':
-                neutralPlayer = new ImperialsPlayer();
-                break;
-            case 'Plutocrats':
-                neutralPlayer = new PlutocratsPlayer();
-                break;
-            case 'Populists':
-                neutralPlayer = new PopulistsPlayer();
-                break;
-            default:
-                throw new Error('Invalid Neutral Player name');
-        }
-
-        neutralPlayer.handCards = data.handCards.map((cardData) => FactionCard.Build(cardData));
-        neutralPlayer.senators = data.senators.map((senatorData) => SenatorSet.Build(senatorData));
-        neutralPlayer.factionDominance = data.factionDominance;
-        neutralPlayer.factionTreasury = data._factionTreasury;
-
-        return neutralPlayer;
-    }
+    abstract chooseFactionLeader(): void;
+    abstract divideRevenue(revenue: number): void;
+    abstract willGraftProvincialSpoils(): boolean;
 
     public playConcession(concession: Concession) {
         if (!this.senators.length) return;

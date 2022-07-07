@@ -11,13 +11,13 @@ export class SenatorSet {
     public provinces: Province[] = [];
     public loyalLegionsNumbers: number[] = [];
     public isFactionLeader: boolean = false;
+    public majorOffice: MajorOffice = null;
 
     private _statesman: Statesman = null;
     private _popularity: number = 0;
     private _influence: number;
     private _knights: number = 0;
     private _talents: number = 0;
-    private _majorOffice: MajorOffice = null;
 
     constructor(familyOrStatesman: Family | Statesman) {
         if (familyOrStatesman instanceof Statesman) {
@@ -29,28 +29,6 @@ export class SenatorSet {
 
         this.family = familyOrStatesman;
         this.influence = this.family.baseInfluence;
-    }
-
-    public static Build(data: any): SenatorSet {
-        let senatorSet: SenatorSet;
-        if (data.statesman) {
-            senatorSet = new SenatorSet(Statesman.Build(data.statesman));
-            if (data.family) senatorSet.family = Family.Build(data.family);
-        } else {
-            senatorSet = new SenatorSet(Family.Build(data.family));
-        }
-
-        senatorSet.concessions = data.concessions.map((concessionData) => Concession.Build(concessionData));
-        senatorSet.provinces = data.provinces.map((provinceData) => Province.Build(provinceData));
-        if (data._majorOffice) senatorSet._majorOffice = MajorOffice.Build(data._majorOffice);
-        senatorSet.loyalLegionsNumbers = data.loyalLegionsNumbers;
-        senatorSet.isFactionLeader = data.isFactionLeader;
-        senatorSet.popularity = data._popularity;
-        senatorSet.influence = data._influence;
-        senatorSet.knights = data._knights;
-        senatorSet.talents = data._talents;
-
-        return senatorSet;
     }
 
     public set statesman(newStatesman: Statesman) {
@@ -116,15 +94,6 @@ export class SenatorSet {
 
     public get talents() {
         return this._talents;
-    }
-
-    public set majorOffice(office: MajorOffice) {
-        this._majorOffice = office;
-        if (office) this.influence += office.influenceGain;
-    }
-
-    public get majorOffice(): MajorOffice {
-        return this._majorOffice;
     }
 
     public get familyId(): number {

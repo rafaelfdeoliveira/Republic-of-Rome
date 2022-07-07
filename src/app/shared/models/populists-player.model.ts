@@ -1,11 +1,10 @@
 import { CharityGuideline } from "./charity-guideline.model";
-import { NeutralAI } from "./neutral-AI.model";
 import { NeutralPlayer } from "./neutral-player.model";
 import { SpoilsGuideline } from "./spoils-guideline.model";
 import { shuffle } from 'lodash';
 import { rollDice } from "../utilities/common.utility";
 
-export class PopulistsPlayer extends NeutralPlayer implements NeutralAI {
+export class PopulistsPlayer extends NeutralPlayer {
 
     constructor() {
         super(
@@ -29,13 +28,13 @@ export class PopulistsPlayer extends NeutralPlayer implements NeutralAI {
             if (senatorSet.influence + senatorSet.popularity > acc) {
                 return senatorSet.influence + senatorSet.popularity;
             }
-
             return acc;
         }, -9);
 
         const senatorsWithGreatestInfluenceAndPopularityCombined = this.senators.filter((senatorSet) => {
-            senatorSet.influence + senatorSet.popularity === greatestInfluenceAndPopularityCombined;
+            return senatorSet.influence + senatorSet.popularity === greatestInfluenceAndPopularityCombined;
         });
+
         this.setFactionLeader(shuffle(senatorsWithGreatestInfluenceAndPopularityCombined)[0].familyId);
     }
 

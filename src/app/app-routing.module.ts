@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { GameLoadedGuard } from './shared/guards/game-loaded.guard';
 
 const routes: Routes = [
   {
@@ -8,10 +9,12 @@ const routes: Routes = [
   },
   {
     path: 'game',
-    loadChildren: () => import('./game/game.module').then( m => m.GamePageModule)
+    loadChildren: () => import('./game/game.module').then( m => m.GamePageModule),
+    canActivate: [GameLoadedGuard]
   },
   {
     path: '**',
+    pathMatch: 'full',
     redirectTo: 'menu'
   }
 ];
