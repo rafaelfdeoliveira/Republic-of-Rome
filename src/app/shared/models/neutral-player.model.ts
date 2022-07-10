@@ -23,7 +23,7 @@ export abstract class NeutralPlayer extends Player {
 
     public playConcession(concession: Concession) {
         if (!this.senators.length) return;
-        
+        this.removeCardFromHand(concession);
         const senators = this.senatorsWithLeastConcessionsAndMostInfluence;
         shuffle(senators)[0].concessions.push(concession);
     }

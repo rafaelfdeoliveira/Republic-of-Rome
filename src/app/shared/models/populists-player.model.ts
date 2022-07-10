@@ -1,6 +1,7 @@
 import { CharityGuideline } from "./charity-guideline.model";
 import { NeutralPlayer } from "./neutral-player.model";
 import { SpoilsGuideline } from "./spoils-guideline.model";
+import { buildFactionCard, buildSenatorSet } from "../utilities/class-factories.utility";
 import { shuffle } from 'lodash';
 import { rollDice } from "../utilities/common.utility";
 
@@ -21,6 +22,15 @@ export class PopulistsPlayer extends NeutralPlayer {
                 SpoilsGuideline.GOVERNOR
             ]
         );
+    }
+
+    public static Build(data: any): PopulistsPlayer {
+        const populistsPlayer = new PopulistsPlayer();
+        populistsPlayer.handCards = data.handCards.map((cardData) => buildFactionCard(cardData));
+        populistsPlayer.senators = data.senators.map((senatorData) => buildSenatorSet(senatorData));
+        populistsPlayer.factionDominance = data.factionDominance;
+        populistsPlayer.factionTreasury = data._factionTreasury;
+        return populistsPlayer;
     }
 
     public chooseFactionLeader(): void {

@@ -1,0 +1,47 @@
+ion-content::part(scroll) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-selectors {
+    width: fit-content;
+    display: flex;
+    gap: min(3.57vw, 17px);
+
+    ion-segment-button {
+        --padding-start: 0;
+        --padding-end: 0;
+        min-width: auto;
+
+        &::part(indicator) {
+            z-index: 2;
+        }
+
+        ion-icon {
+            width: 100%;
+            height: 100%;
+        }
+
+        ion-thumbnail {
+            --size: min(15.71vw, 75px);
+
+        }
+    }
+}
+
+.selected-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}

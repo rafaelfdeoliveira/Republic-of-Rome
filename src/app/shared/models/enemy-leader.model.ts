@@ -31,8 +31,9 @@ export class EnemyLeader extends ForumCard {
         );
     }
 
-    public getStrengthenedWarsText() {
-        if (this.matchingWarsCommonName.endsWith('s')) return `Increase Strength of all ${this.matchingWarsCommonName}.`;
-        return `Increase Strength of ${this.matchingWarsCommonName}.`;
+    public getStrengthenedWarsText(): string {
+        return this.matchingWarsCommonName.endsWith('s')
+            ? `Increase Strength of all ${this.matchingWarsCommonName}.`
+            : `Increase Strength of ${this.matchingWarsCommonName}.`;
     }
 }

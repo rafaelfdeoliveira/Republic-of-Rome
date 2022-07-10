@@ -5,4 +5,4 @@ export class Fleet {
     ) {}
 }
 
-export const getFullFleetPool = (): Fleet[] => new Array(25).map((value, index) => new Fleet(index + 1));
+export const getFullFleetPool = (): Fleet[] => new Array(25).fill('').map((value, index) => new Fleet(index + 1));

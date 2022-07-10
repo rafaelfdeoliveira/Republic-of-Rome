@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { GameLoadedGuard } from './shared/guards/game-loaded.guard';
+import { SoloGameGuard } from './shared/guards/solo-game.guard';
 
 const routes: Routes = [
   {
@@ -8,9 +8,9 @@ const routes: Routes = [
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
   },
   {
-    path: 'game',
-    loadChildren: () => import('./game/game.module').then( m => m.GamePageModule),
-    canActivate: [GameLoadedGuard]
+    path: 'solo-game',
+    loadChildren: () => import('./solo-game/solo-game.module').then( m => m.SoloGamePageModule),
+    canActivate: [SoloGameGuard]
   },
   {
     path: '**',

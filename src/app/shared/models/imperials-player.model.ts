@@ -1,6 +1,7 @@
 import { CharityGuideline } from "./charity-guideline.model";
 import { NeutralPlayer } from "./neutral-player.model";
 import { SpoilsGuideline } from "./spoils-guideline.model";
+import { buildFactionCard, buildSenatorSet } from "../utilities/class-factories.utility";
 import { shuffle } from 'lodash';
 import { rollDice } from "../utilities/common.utility";
 
@@ -21,6 +22,15 @@ export class ImperialsPlayer extends NeutralPlayer {
                 SpoilsGuideline.LAND_BILL
             ]
         );
+    }
+
+    public static Build(data: any): ImperialsPlayer {
+        const imperialsPlayer = new ImperialsPlayer();
+        imperialsPlayer.handCards = data.handCards.map((cardData) => buildFactionCard(cardData));
+        imperialsPlayer.senators = data.senators.map((senatorData) => buildSenatorSet(senatorData));
+        imperialsPlayer.factionDominance = data.factionDominance;
+        imperialsPlayer.factionTreasury = data._factionTreasury;
+        return imperialsPlayer;
     }
 
     public chooseFactionLeader(): void {

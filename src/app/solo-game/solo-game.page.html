@@ -1,0 +1,37 @@
+<ion-content>
+  <ion-segment
+    class="player-selectors"
+    [value]="game.humanPlayer"
+    (ionChange)="changeSelectedPlayer($event)"
+    >
+    <ion-segment-button [value]="game.humanPlayer">
+      <ion-thumbnail>
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-thumbnail>
+    </ion-segment-button>
+    <ion-segment-button
+      *ngFor="let neutral of game.neutralPlayers"
+      [value]="neutral"
+    >
+      <ion-thumbnail>
+        <ion-img src="../../assets/images/{{neutral.name}}-symbol.jpg" alt="{{neutral.name}} Player"></ion-img>
+      </ion-thumbnail>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="selected-player">
+    <h2>{{ selectedPlayer.name }}</h2>
+    <div>
+      <ion-label>Treasury: {{ selectedPlayer.factionTreasury }} Talents</ion-label>
+      <ion-label>Votes: {{ selectedPlayer.votes }}</ion-label>
+      <ion-label>Dominance: {{ selectedPlayer.factionDominance }}</ion-label>
+    </div>
+    <h3>Hand Cards</h3>
+    <div>
+      <app-faction-card
+        *ngFor="let factionCard of selectedPlayer.handCards"
+        [factionCard]="factionCard"
+      ></app-faction-card>
+    </div>
+  </div>
+</ion-content>

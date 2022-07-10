@@ -1,6 +1,7 @@
 import { CharityGuideline } from "./charity-guideline.model";
 import { NeutralPlayer } from "./neutral-player.model";
 import { SpoilsGuideline } from "./spoils-guideline.model";
+import { buildFactionCard, buildSenatorSet } from "../utilities/class-factories.utility";
 import { shuffle } from 'lodash';
 
 export class PlutocratsPlayer extends NeutralPlayer {
@@ -19,6 +20,15 @@ export class PlutocratsPlayer extends NeutralPlayer {
                SpoilsGuideline.FIELD_CONSUL
             ]
         );
+    }
+
+    public static Build(data: any): PlutocratsPlayer {
+        const plutocratsPlayer = new PlutocratsPlayer();
+        plutocratsPlayer.handCards = data.handCards.map((cardData) => buildFactionCard(cardData));
+        plutocratsPlayer.senators = data.senators.map((senatorData) => buildSenatorSet(senatorData));
+        plutocratsPlayer.factionDominance = data.factionDominance;
+        plutocratsPlayer.factionTreasury = data._factionTreasury;
+        return plutocratsPlayer;
     }
 
     public chooseFactionLeader(): void {

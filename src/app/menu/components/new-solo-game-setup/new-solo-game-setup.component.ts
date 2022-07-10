@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Scenario } from 'src/app/shared/models/scenario.model';
+import { Scenario, allScenarios } from 'src/app/shared/models/scenario.model';
 import { SoloGameService } from 'src/app/shared/services/solo-game.service';
 
 @Component({
@@ -11,15 +11,7 @@ import { SoloGameService } from 'src/app/shared/services/solo-game.service';
 })
 export class NewSoloGameSetupComponent {
   
-  public scenariosList = [
-    Scenario.EARLY_REPUBLIC,
-    Scenario.MIDDLE_REPUBLIC,
-    Scenario.LATE_REPUBLIC,
-    Scenario.EARLY_TO_LATE_REPUBLIC,
-    Scenario.EARLY_TO_MIDDLE_REPUBLIC,
-    Scenario.MIDDLE_TO_LATE_REPUBLIC,
-    Scenario.ALTERNATE_HISTORY
-  ]
+  public scenariosList = allScenarios;
 
   constructor(
     private router: Router,
@@ -29,7 +21,8 @@ export class NewSoloGameSetupComponent {
 
   public async createNewSoloGame(scenario: Scenario) {
     const alert = await this.alertCtrl.create({
-      header: 'Enter your name',
+      header: `${scenario} Scenario`,
+      message: 'Enter your name',
       keyboardClose: false,
       backdropDismiss: false,
       buttons: [
@@ -41,8 +34,9 @@ export class NewSoloGameSetupComponent {
 
           text: 'Start Game',
           handler: data => {
-            if (data.playerName.trim()) {
-              this.soloGameService.prepareScenario(scenario, data.playerName.trim());
+            const playerName = data.playerName.trim();
+            if (playerName) {
+              this.soloGameService.prepareScenario(scenario, playerName);
               return true;
             }
             return false;
@@ -59,7 +53,7 @@ export class NewSoloGameSetupComponent {
     await alert.present();
     const { role } = await alert.onWillDismiss();
     if (role !== 'cancel') {
-      this.router.navigate(['/game']);
+      this.router.navigate(['/solo-game']);
     }
   }
 }

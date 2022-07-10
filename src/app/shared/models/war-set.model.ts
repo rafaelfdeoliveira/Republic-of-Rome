@@ -23,6 +23,66 @@ export class WarSet {
         return warSet;
     }
 
+    public get wars(): War[] {
+        let wars: War[] = [];
+        if (this.firstWar) wars.push(this.firstWar);
+        if (this.secondWar) wars.push(this.secondWar);
+        if (this.thirdWar) wars.push(this.thirdWar);
+        if (this.fourthWar) wars.push(this.fourthWar);
+        return wars;
+    }
+
+    public get enemyLeaders(): EnemyLeader[] {
+        let enemyLeaders: EnemyLeader[] = [];
+        if (this.firstLeader) enemyLeaders.push(this.firstLeader);
+        if (this.secondLeader) enemyLeaders.push(this.secondLeader);
+        return enemyLeaders;
+    }
+
+    public get landStrength(): number {
+        const wars = this.wars;
+        if (!wars.length) return 0;
+        return wars[0].landStrength * wars.length + this.leadersStrength;
+    }
+
+    public get fleetStrength(): number {
+        const wars = this.wars;
+        if (!wars.length) return 0;
+        return wars[0].fleetStrength * wars.length + this.leadersStrength;
+    }
+
+    public get fleetSupport(): number {
+        const wars = this.wars;
+        if (!wars.length) return 0;
+        return wars[0].fleetSupport;
+    }
+
+    public get warDisasters(): number[] {
+        const wars = this.wars;
+        if (!wars.length) return [];
+        return wars[0].disasters;
+    }
+
+    public get disasters(): number[] {
+        const leadersDisasters: number[] = this.enemyLeaders.reduce((acc, leader) => [...acc, leader.disaster], []);
+        return [...this.warDisasters, ...leadersDisasters];
+    }
+
+    public get warStandoffs(): number[] {
+        const wars = this.wars;
+        if (!wars.length) return [];
+        return wars[0].standoffs;
+    }
+
+    public get standoffs(): number[] {
+        const leadersStandoffs: number[] = this.enemyLeaders.reduce((acc, leader) => [...acc, leader.standoff], []);
+        return [...this.warStandoffs, ...leadersStandoffs];
+    }
+
+    private get leadersStrength(): number {
+        return this.enemyLeaders.reduce((acc, leader) => acc + leader.strength, 0);
+    }
+
     public addNewWar(newWar: War) {
         switch(newWar.warNumber) {
             case 1:
@@ -50,6 +110,4 @@ export class WarSet {
 
         this.firstLeader = newEnemyLeader;
     }
-
-
 }

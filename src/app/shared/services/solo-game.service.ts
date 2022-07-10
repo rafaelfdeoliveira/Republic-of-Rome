@@ -25,12 +25,14 @@ import { Player } from '../models/player.model';
 import { Statesman } from '../models/statesman.model';
 import { NeutralPlayer } from '../models/neutral-player.model';
 import { EraEnds } from '../models/era-ends.model';
+import { Age } from '../models/age.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SoloGameService {
 
+  public age: Age;
   public humanPlayer: HumanPlayer;
   public conservativesPlayer: ConservativesPlayer;
   public imperialsPlayer: ImperialsPlayer;
@@ -149,6 +151,7 @@ export class SoloGameService {
   }
 
   private prepareEarlyRepublicScenario() {
+    this.age = Age.EARLY_REPUBLIC;
     const earlyRepublicDeck = getEarlyRepublicDeck();
 
     const firstPunicWarCard = earlyRepublicDeck.find(card => card.id === 1) as War;
@@ -284,6 +287,7 @@ export class SoloGameService {
   }
 
   private resetGame(playerName: string = 'Player') {
+    this.age = null;
     this.humanPlayer = new HumanPlayer(playerName);
     this.conservativesPlayer = new ConservativesPlayer();
     this.imperialsPlayer = new ImperialsPlayer();

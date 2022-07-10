@@ -143,7 +143,6 @@ export class Province {
     }
 
     private getCorrectProperty<T>(developedProperty: T, undevelopedProperty: T): T {
-        if (this.isDevelopedProvince) return developedProperty;
-        return undevelopedProperty;
+        return this.isDevelopedProvince ? developedProperty : undevelopedProperty;
     }
 }

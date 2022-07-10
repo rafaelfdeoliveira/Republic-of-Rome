@@ -9,16 +9,20 @@
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-.menu-content {
+ion-content {
     --background: #d9d9d9;
 
     &::part(scroll) {
-        padding: 20px;
+        padding: 10px;
+    }
+}
+
+.menu-content {
+    &::part(scroll) {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -38,4 +42,16 @@
             width: 150px;
         }
     }
+}
+
+.early-republic-card {
+    border: 15px solid white;
+}
+
+.middle-republic-card {
+    border: 15px solid darkgray;
+}
+
+.late-republic-card {
+    border: 15px solid darkred;
 }

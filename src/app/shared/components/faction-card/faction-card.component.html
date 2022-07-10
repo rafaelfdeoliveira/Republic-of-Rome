@@ -1,0 +1,7 @@
+<ng-container [ngSwitch]="cardType">
+  <app-statesman *ngSwitchCase="'statesman'" [statesman]="getStatesman()"></app-statesman>
+  <app-intrigue-card *ngSwitchCase="'intrigue'"></app-intrigue-card>
+  <app-concession *ngSwitchCase="'concession'"></app-concession>
+  <app-law *ngSwitchCase="'law'"></app-law>
+  <app-enemy-leader *ngSwitchCase="'cleopatra'"></app-enemy-leader>
+</ng-container>

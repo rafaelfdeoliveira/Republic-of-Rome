@@ -55,12 +55,16 @@ export abstract class Player {
     }
 
     public playStatesman(statesman: Statesman) {
-        this.handCards = this.handCards.filter((card) => card.id !== statesman.id);
+        this.removeCardFromHand(statesman);
         const statesmanSenatorSet = this.senators.find((senatorSet) => senatorSet.familyId === statesman.familyId);
         if (statesmanSenatorSet) {
             statesmanSenatorSet.statesman = statesman;
             return;
         }
         this.senators.push(new SenatorSet(statesman));
+    }
+
+    protected removeCardFromHand(factionCard: FactionCard) {
+        this.handCards = this.handCards.filter((card) => card.id !== factionCard.id);
     }
 }

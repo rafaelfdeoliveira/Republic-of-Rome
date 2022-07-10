@@ -1,0 +1,49 @@
+<div
+  class="statesman"
+  [ngClass]="{
+    'early-republic-card': isFromEarlyRepublic(statesman),
+    'middle-republic-card': isFromMiddleRepublic(statesman),
+    'late-republic-card': isFromLateRepublic(statesman)
+  }"
+>
+  <div>
+    <h3>{{ statesman.name | uppercase }}</h3>
+    <h3>[{{ statesman.familyId }}{{ statesman.familyStatesmanLetterId }}]</h3>
+  </div>
+  <div>
+    <div>
+      <p *ngFor="let text of statesman.texts">{{ text }}</p>
+    </div>
+    <div>
+      <div>
+        <h4>MIL</h4>
+        <h4>{{ statesman.military }}</h4>
+      </div>
+      <div>
+        <h4>ORA</h4>
+        <h4>{{ statesman.oratory }}</h4>
+      </div>
+      <div>
+        <h4>LOY</h4>
+        <h4>
+          {{ statesman.baseLoyalty }}
+          <span *ngIf="statesman.hasOpposingStatesmen()">/ 0</span>
+        </h4>
+      </div>
+      <div *ngIf="statesman.loyaltySubtitle">
+        <h4>{{ statesman.loyaltySubtitle }}</h4>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div><h4>{{ statesman.basePopularity }}</h4></div>
+      <h6>POPULARITY</h6>
+    </div>
+    <h6>{{ statesman.id }}</h6>
+    <div>
+      <div><h4>{{ statesman.baseInfluence }}</h4></div>
+      <h6>INFLUENCE</h6>
+    </div>
+  </div>
+</div>

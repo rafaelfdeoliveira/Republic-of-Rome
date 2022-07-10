@@ -1,36 +1,36 @@
-import { Statesman } from "./statesman.model";
-import { Gracchus } from "./gracchus.model";
-import { FactionCard } from "./faction-card.model";
-import { Concession } from "./concession.model";
-import { Law } from "./law.model";
-import { Cleopatra } from "./cleopatra.model";
-import { IntrigueCard } from "./intrigue-card.model";
-import { Assassin } from "./assassin.model";
-import { Blackmail } from "./blackmail.model";
-import { Graft } from "./graft.model";
-import { InfluencePeddling } from "./influence-peddling.model";
-import { MobIncitedToViolence } from "./mob-incited-to-violence.model";
-import { MurderOfATribune } from "./murder-of-a-tribune.model";
-import { OpenBodyguard } from "./open-bodyguard.model";
-import { Proscription } from "./proscription.model";
-import { SecretBodyguard } from "./secret-bodyguard.model";
-import { Seduction } from "./seduction.model";
-import { Tribune } from "./tribune.model";
-import { Card } from "./card.model";
-import { ForumCard } from "./forum-card.model";
-import { Bequest } from "./bequest.model";
-import { EnemyLeader } from "./enemy-leader.model";
-import { EraEnds } from "./era-ends.model";
-import { Family } from "./family.model";
-import { War } from "./war.model";
-import { ConservativesPlayer } from "./conservatives-player.model";
-import { ImperialsPlayer } from "./imperials-player.model";
-import { NeutralPlayer } from "./neutral-player.model";
-import { PlutocratsPlayer } from "./plutocrats-player.model";
-import { PopulistsPlayer } from "./populists-player.model";
-import { SenatorSet } from "./senator-set.model";
-import { MajorOffice } from "./major-office.model";
-import { Province } from "./province.model";
+import { Statesman } from "../models/statesman.model";
+import { Gracchus } from "../models/gracchus.model";
+import { FactionCard } from "../models/faction-card.model";
+import { Concession } from "../models/concession.model";
+import { Law } from "../models/law.model";
+import { Cleopatra } from "../models/cleopatra.model";
+import { IntrigueCard } from "../models/intrigue-card.model";
+import { Assassin } from "../models/assassin.model";
+import { Blackmail } from "../models/blackmail.model";
+import { Graft } from "../models/graft.model";
+import { InfluencePeddling } from "../models/influence-peddling.model";
+import { MobIncitedToViolence } from "../models/mob-incited-to-violence.model";
+import { MurderOfATribune } from "../models/murder-of-a-tribune.model";
+import { OpenBodyguard } from "../models/open-bodyguard.model";
+import { Proscription } from "../models/proscription.model";
+import { SecretBodyguard } from "../models/secret-bodyguard.model";
+import { Seduction } from "../models/seduction.model";
+import { Tribune } from "../models/tribune.model";
+import { Card } from "../models/card.model";
+import { ForumCard } from "../models/forum-card.model";
+import { Bequest } from "../models/bequest.model";
+import { EnemyLeader } from "../models/enemy-leader.model";
+import { EraEnds } from "../models/era-ends.model";
+import { Family } from "../models/family.model";
+import { War } from "../models/war.model";
+import { ConservativesPlayer } from "../models/conservatives-player.model";
+import { ImperialsPlayer } from "../models/imperials-player.model";
+import { NeutralPlayer } from "../models/neutral-player.model";
+import { PlutocratsPlayer } from "../models/plutocrats-player.model";
+import { PopulistsPlayer } from "../models/populists-player.model";
+import { SenatorSet } from "../models/senator-set.model";
+import { MajorOffice } from "../models/major-office.model";
+import { Province } from "../models/province.model";
 
 export function buildStatesman(data: any): Statesman {
     if (data.familyId === 25) {
@@ -136,28 +136,16 @@ export function buildSenatorSet(data: any): SenatorSet {
 }
 
 export function buildNeutralPlayer(data: any): NeutralPlayer {
-    let neutralPlayer: NeutralPlayer;
     switch(data.name) {
         case 'Conservatives':
-            neutralPlayer = new ConservativesPlayer();
-            break;
+            return ConservativesPlayer.Build(data);
         case 'Imperials':
-            neutralPlayer = new ImperialsPlayer();
-            break;
+            return ImperialsPlayer.Build(data);
         case 'Plutocrats':
-            neutralPlayer = new PlutocratsPlayer();
-            break;
+            return PlutocratsPlayer.Build(data);
         case 'Populists':
-            neutralPlayer = new PopulistsPlayer();
-            break;
+            return PopulistsPlayer.Build(data);
         default:
             throw new Error('Invalid Neutral Player name');
     }
-
-    neutralPlayer.handCards = data.handCards.map((cardData) => buildFactionCard(cardData));
-    neutralPlayer.senators = data.senators.map((senatorData) => buildSenatorSet(senatorData));
-    neutralPlayer.factionDominance = data.factionDominance;
-    neutralPlayer.factionTreasury = data._factionTreasury;
-
-    return neutralPlayer;
 }
