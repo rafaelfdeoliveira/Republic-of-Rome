@@ -13,12 +13,24 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+:root {
+    font-size: clamp(4px, 1.43vw, 6px);
+}
+
 ion-content {
     --background: #d9d9d9;
 
     &::part(scroll) {
         padding: 10px;
     }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bold-text {
+    font-weight: bold;
 }
 
 .menu-content {
@@ -41,6 +53,33 @@ ion-content {
         > ion-button::part(native) {
             width: 150px;
         }
+    }
+}
+
+.card {
+    padding: 5px;
+    width: clamp(260px, calc(100vw - 20px), 390px);
+    aspect-ratio: 2;
+    box-sizing: border-box;
+    
+    h3, h6 {
+        font-size: 2rem;
+        margin: 0;
+    }
+    
+    p {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    &.selected::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border: 1px solid red;
     }
 }
 

@@ -1,0 +1,74 @@
+.enemy-leader {
+    position: relative;
+    background-color: #E7DFB1;
+
+    &.red-text {
+        color: red;
+    }
+
+    > div:first-of-type {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        text-align: justify;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    > ion-icon {
+        position: absolute;
+        top: calc(25% - 1rem);
+        right: calc(25% - 1rem);
+        transform: scale(10);
+        opacity: 0.2;
+    }
+
+    > h6 {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 3rem;
+    }
+
+    > div:last-of-type {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        display: flex;
+        flex-direction: column;
+
+        > div {
+            display: flex;
+
+            > div {
+                width: fit-content;
+                aspect-ratio: 1;
+                padding: 0.83rem;
+                text-align: center;
+            }
+
+            > div:last-child {
+                color: white;
+            }
+
+            &:first-child > div:last-child {
+                background-color: #595049;
+            }
+
+            &:last-child > div:last-child {
+                background-color: #B4946D;
+            }
+        }
+    }
+
+    > p {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+}

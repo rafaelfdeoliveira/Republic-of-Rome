@@ -1,3 +1,20 @@
-<p>
-  law works!
-</p>
+<div
+  class="law card"
+  [ngClass]="{
+    'middle-republic-card': isFromMiddleRepublic(law),
+    'late-republic-card': isFromLateRepublic(law),
+    'pointer': selectable,
+    'selected': isSelected
+  }"
+  (click)="changeSelectionState(law)"
+>
+  <div>
+    <h3>{{ law.name | uppercase }}</h3>
+  </div>
+  <div>
+    <p *ngFor="let text of law.lawTexts">{{ text }}</p>
+  </div>
+  <p>LAW</p>
+  <p>LAW</p>
+  <p>{{ law.id }}</p>
+</div>

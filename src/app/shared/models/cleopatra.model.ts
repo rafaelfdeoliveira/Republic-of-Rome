@@ -15,4 +15,8 @@ export class Cleopatra extends FactionCard {
     constructor() {
         super(139, 'Cleopatra VII', Age.LATE_REPUBLIC);
     }
+
+    public get strengthenedWarsText(): string {
+        return `Increase Strength of ${this.matchingWarsCommonName}.`;
+    }
 }

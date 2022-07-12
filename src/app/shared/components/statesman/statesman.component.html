@@ -1,14 +1,18 @@
 <div
-  class="statesman"
+  class="statesman card"
   [ngClass]="{
     'early-republic-card': isFromEarlyRepublic(statesman),
     'middle-republic-card': isFromMiddleRepublic(statesman),
-    'late-republic-card': isFromLateRepublic(statesman)
+    'late-republic-card': isFromLateRepublic(statesman),
+    'pointer': selectable,
+    'selected': isSelected
   }"
+  (click)="changeSelectionState(statesman)"
 >
+  <ion-icon name="person-outline"></ion-icon>
   <div>
-    <h3>{{ statesman.name | uppercase }}</h3>
-    <h3>[{{ statesman.familyId }}{{ statesman.familyStatesmanLetterId }}]</h3>
+    <h3 class="bold-text">{{ statesman.name | uppercase }}</h3>
+    <h6>[{{ statesman.familyId }}{{ statesman.familyStatesmanLetterId }}]</h6>
   </div>
   <div>
     <div>
@@ -16,34 +20,38 @@
     </div>
     <div>
       <div>
-        <h4>MIL</h4>
-        <h4>{{ statesman.military }}</h4>
+        <h6>MIL</h6>
+        <h6 class="bold-text">{{ statesman.id === 135 ? 'd6 + 1' : statesman.military }}</h6>
       </div>
       <div>
-        <h4>ORA</h4>
-        <h4>{{ statesman.oratory }}</h4>
+        <h6>ORA</h6>
+        <h6 class="bold-text">{{ statesman.oratory }}</h6>
       </div>
       <div>
-        <h4>LOY</h4>
-        <h4>
+        <h6>LOY</h6>
+        <h6 class="bold-text">
           {{ statesman.baseLoyalty }}
           <span *ngIf="statesman.hasOpposingStatesmen()">/ 0</span>
-        </h4>
+        </h6>
       </div>
       <div *ngIf="statesman.loyaltySubtitle">
-        <h4>{{ statesman.loyaltySubtitle }}</h4>
+        <h6>{{ statesman.loyaltySubtitle }}</h6>
       </div>
     </div>
   </div>
   <div>
     <div>
-      <div><h4>{{ statesman.basePopularity }}</h4></div>
-      <h6>POPULARITY</h6>
+      <div><h6 class="bold-text">{{ popularity ?? statesman.basePopularity }}</h6></div>
+      <p>POPULARITY</p>
     </div>
-    <h6>{{ statesman.id }}</h6>
     <div>
-      <div><h4>{{ statesman.baseInfluence }}</h4></div>
-      <h6>INFLUENCE</h6>
+      <div><h6 class="bold-text">{{ influence ?? statesman.baseInfluence }}</h6></div>
+      <p>INFLUENCE</p>
     </div>
+    <div>
+      <div><h6 class="bold-text">{{ knights ?? 0 }}</h6></div>
+      <p>KNIGHTS</p>
+    </div>
+    <p>{{ statesman.id }}</p>
   </div>
 </div>

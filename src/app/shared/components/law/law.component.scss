@@ -1,0 +1,44 @@
+.law {
+    position: relative;
+    color: red;
+    background-color: #E3CE97;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px 20px;
+
+    > div:first-of-type {
+        display: flex;
+        justify-content: center;
+    }
+
+    > div:last-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    > p {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        letter-spacing: 2px;
+
+        &:first-of-type {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        &:nth-of-type(2) {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+        }
+
+        &:last-of-type {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+    }
+}

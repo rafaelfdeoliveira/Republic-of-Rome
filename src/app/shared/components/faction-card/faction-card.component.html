@@ -1,7 +1,32 @@
 <ng-container [ngSwitch]="cardType">
-  <app-statesman *ngSwitchCase="'statesman'" [statesman]="getStatesman()"></app-statesman>
-  <app-intrigue-card *ngSwitchCase="'intrigue'"></app-intrigue-card>
-  <app-concession *ngSwitchCase="'concession'"></app-concession>
-  <app-law *ngSwitchCase="'law'"></app-law>
-  <app-enemy-leader *ngSwitchCase="'cleopatra'"></app-enemy-leader>
+  <app-statesman 
+    *ngSwitchCase="'statesman'"
+    [statesman]="statesman"
+    [selectable]="selectable"
+    (selectionToggled)="changeSelectionState($event)"
+  ></app-statesman>
+  <app-intrigue-card
+    *ngSwitchCase="'intrigue'"
+    [intrigueCard]="intrigueCard"
+    [selectable]="selectable"
+    (selectionToggled)="changeSelectionState($event)"
+  ></app-intrigue-card>
+  <app-concession
+    *ngSwitchCase="'concession'"
+    [concession]="concession"
+    [selectable]="selectable"
+    (selectionToggled)="changeSelectionState($event)"
+  ></app-concession>
+  <app-law
+    *ngSwitchCase="'law'"
+    [law]="law"
+    [selectable]="selectable"
+    (selectionToggled)="changeSelectionState($event)"
+  ></app-law>
+  <app-enemy-leader
+    *ngSwitchCase="'cleopatra'"
+    [enemyLeader]="cleopatra"
+    [selectable]="selectable"
+    (selectionToggled)="changeSelectionState($event)"
+  ></app-enemy-leader>
 </ng-container>

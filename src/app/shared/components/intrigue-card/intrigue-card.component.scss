@@ -1,0 +1,44 @@
+.intrigue-card {
+    position: relative;
+    color: red;
+    background-color: #E5E5BF;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > div:first-of-type {
+        display: flex;
+        justify-content: center;
+    }
+
+    > div:nth-of-type(2) {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    > div:nth-of-type(3) {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        > div {
+            width: fit-content;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+
+            > p:first-child {
+                text-decoration: underline;
+                font-weight: bold;
+            }
+        }
+    }
+
+    > p {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+}

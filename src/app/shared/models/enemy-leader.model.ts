@@ -31,7 +31,7 @@ export class EnemyLeader extends ForumCard {
         );
     }
 
-    public getStrengthenedWarsText(): string {
+    public get strengthenedWarsText(): string {
         return this.matchingWarsCommonName.endsWith('s')
             ? `Increase Strength of all ${this.matchingWarsCommonName}.`
             : `Increase Strength of ${this.matchingWarsCommonName}.`;

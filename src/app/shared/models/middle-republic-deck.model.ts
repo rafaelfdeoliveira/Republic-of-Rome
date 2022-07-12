@@ -194,7 +194,7 @@ export const getMiddleRepublicDeck = (): Card[] => [
         5,
         6,
         5,
-        ['May claim unheld Land Comissioner Concession during Senate Phase any time after Prosecutions provided a Land Bill is in effect.'],
+        ['May claim unheld Land Commissioner Concession during Senate Phase any time after Prosecutions provided a Land Bill is in effect.'],
         0,
         '-Laenas (23A)',
         ['23-1']

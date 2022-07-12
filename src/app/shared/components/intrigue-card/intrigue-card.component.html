@@ -1,3 +1,33 @@
-<p>
-  intrigue-card works!
-</p>
+<div
+  class="intrigue-card card"
+  [ngClass]="{
+    'early-republic-card': isFromEarlyRepublic(intrigueCard),
+    'middle-republic-card': isFromMiddleRepublic(intrigueCard),
+    'late-republic-card': isFromLateRepublic(intrigueCard),
+    'pointer': selectable,
+    'selected': isSelected
+  }"
+  (click)="changeSelectionState(intrigueCard)"
+>
+  <div>
+    <h3>{{ intrigueCard.name | uppercase }}</h3>
+  </div>
+  <div>
+    <p *ngFor="let text of intrigueCard.texts">{{ text }}</p>
+  </div>
+  <div *ngIf="isAssassin">
+    <div>
+      <p>Modified 1d6</p>
+      <p>≥ 5</p>
+      <p>3-4</p>
+      <p>≤ 2</p>
+    </div>
+    <div>
+      <p>Result</p>
+      <p>Killed</p>
+      <p>No effect</p>
+      <p>Caught</p>
+    </div>
+  </div>
+  <p>{{ intrigueCard.id }}</p>
+</div>

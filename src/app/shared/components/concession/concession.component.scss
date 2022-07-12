@@ -1,0 +1,58 @@
+.concession {
+    position: relative;
+    color: red;
+    background-color: #E6E9D8;
+    display: flex;
+
+    > div:first-child {
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    > div:nth-child(2) {
+        width: 10%;
+        background-color: #EFE0C9;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        letter-spacing: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    > div:last-of-type {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-left: 5px;
+        text-align: center;
+
+        > div:first-child {
+            display: flex;
+            justify-content: center;
+        }
+    
+        > div:last-child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+    
+            > div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+        }
+    }
+
+    > p {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+}

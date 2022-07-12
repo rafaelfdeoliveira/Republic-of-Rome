@@ -1,3 +1,29 @@
-<p>
-  concession works!
-</p>
+<div
+  class="concession early-republic-card card"
+  [ngClass]="{
+    'pointer': selectable,
+    'selected': isSelected
+  }"
+  (click)="changeSelectionState(concession)"
+>
+  <div>
+    <h3>CONCESSION</h3>
+  </div>
+  <div>
+    <h3>CORRUPT</h3>
+  </div>
+  <div>
+    <div>
+      <h3>{{ concession.name | uppercase }}</h3>
+    </div>
+    <div>
+      <p *ngIf="concession.talentsPerTurn">{{ concession.talentsPerTurn }} Talents / Turn.</p>
+      <p *ngFor="let text of concession.specialTexts">{{ text }}</p>
+      <div *ngIf="concession.id !== 58">
+        <p>Return to Curia if Destroyed.</p>
+        <p>Return to Forum if owning Senator is convicted or killed.</p>
+      </div>
+    </div>
+  </div>
+  <p>{{ concession.id }}</p>
+</div>

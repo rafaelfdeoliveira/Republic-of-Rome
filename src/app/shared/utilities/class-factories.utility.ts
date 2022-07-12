@@ -54,7 +54,7 @@ export function buildStatesman(data: any): Statesman {
         data.familyStatesmanId,
         data.military,
         data.oratory,
-        data.loyalty,
+        data.baseLoyalty,
         data.baseInfluence,
         data.texts,
         data.basePopularity,
