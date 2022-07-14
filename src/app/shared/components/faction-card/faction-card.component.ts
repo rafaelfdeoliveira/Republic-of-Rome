@@ -6,7 +6,6 @@ import { IntrigueCard } from '../../models/intrigue-card.model';
 import { Law } from '../../models/law.model';
 import { Statesman } from '../../models/statesman.model';
 import { CardSelectionState } from '../basic-card';
-import { Age } from '../../models/age.model';
 
 @Component({
   selector: 'app-faction-card',

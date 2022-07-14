@@ -3,7 +3,7 @@
   [ngClass]="{
     'middle-republic-card': isFromMiddleRepublic(law),
     'late-republic-card': isFromLateRepublic(law),
-    'pointer': selectable,
+    'pointer': selectable || isSelected,
     'selected': isSelected
   }"
   (click)="changeSelectionState(law)"

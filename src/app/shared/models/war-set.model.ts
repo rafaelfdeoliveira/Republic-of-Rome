@@ -1,3 +1,4 @@
+import { Cleopatra } from './cleopatra.model';
 import { EnemyLeader } from './enemy-leader.model';
 import { War } from './war.model';
 
@@ -7,8 +8,8 @@ export class WarSet {
     public secondWar: War | null = null;
     public thirdWar: War | null = null;
     public fourthWar: War | null = null;
-    public firstLeader: EnemyLeader | null = null;
-    public secondLeader: EnemyLeader | null = null;
+    public firstLeader: EnemyLeader | Cleopatra | null = null;
+    public secondLeader: EnemyLeader | Cleopatra | null = null;
 
     constructor() {}
 
@@ -18,8 +19,8 @@ export class WarSet {
         if (data.secondWar) warSet.secondWar = War.Build(data.secondWar);
         if (data.thirdWar) warSet.thirdWar = War.Build(data.thirdWar);
         if (data.fourthWar) warSet.fourthWar = War.Build(data.fourthWar);
-        if (data.firstLeader) warSet.firstLeader = EnemyLeader.Build(data.firstLeader);
-        if (data.secondLeader) warSet.secondLeader = EnemyLeader.Build(data.secondLeader);
+        if (data.firstLeader) warSet.firstLeader = data.firstLeader.id === 139 ? new Cleopatra() : EnemyLeader.Build(data.firstLeader);
+        if (data.secondLeader) warSet.secondLeader = data.secondLeader.id === 139 ? new Cleopatra() : EnemyLeader.Build(data.secondLeader);
         return warSet;
     }
 
@@ -32,8 +33,8 @@ export class WarSet {
         return wars;
     }
 
-    public get enemyLeaders(): EnemyLeader[] {
-        let enemyLeaders: EnemyLeader[] = [];
+    public get enemyLeaders(): (EnemyLeader | Cleopatra)[] {
+        let enemyLeaders: (EnemyLeader | Cleopatra)[] = [];
         if (this.firstLeader) enemyLeaders.push(this.firstLeader);
         if (this.secondLeader) enemyLeaders.push(this.secondLeader);
         return enemyLeaders;
@@ -102,7 +103,7 @@ export class WarSet {
         }
     }
 
-    public addNewEnemyLeader(newEnemyLeader: EnemyLeader) {
+    public addNewEnemyLeader(newEnemyLeader: EnemyLeader | Cleopatra) {
         if (this.firstLeader) {
             this.secondLeader = newEnemyLeader;
             return;

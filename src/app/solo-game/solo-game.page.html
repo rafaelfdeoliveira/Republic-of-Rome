@@ -1,33 +1,124 @@
 <ion-content>
+  <div class="game-header">
+    <div>
+      <p>AGE</p>
+      <p>{{ game.age }}</p>
+    </div>
+    <div>
+      <p>SCENARIO</p>
+      <p>{{ game.scenario }}</p>
+    </div>
+    <div>
+      <p>PHASE</p>
+      <p>{{ game.phase }}</p>
+    </div>
+  </div>
+
+  <app-horizontal-scroll
+    *ngIf="game.activeWars.length"
+    title="Active Wars"
+  >
+    <app-war-set
+      *ngFor="let activeWar of game.activeWars"
+      [warSet]="activeWar"
+    ></app-war-set>
+  </app-horizontal-scroll>
+
+  <app-horizontal-scroll
+    *ngIf="game.unprosecutedWars.length"
+    title="Unprosecuted Wars"
+  >
+    <app-war-set
+      *ngFor="let unprosecutedWar of game.unprosecutedWars"
+      [warSet]="unprosecutedWar"
+    ></app-war-set>
+  </app-horizontal-scroll>
+
+  <app-horizontal-scroll
+    *ngIf="game.imminentWars.length"
+    title="Imminent Wars"
+  >
+    <app-war
+      *ngFor="let imminentWar of game.imminentWars"
+      [war]="imminentWar"
+    ></app-war>
+  </app-horizontal-scroll>
+
+  <app-horizontal-scroll
+    *ngIf="game.inactiveWars.length"
+    title="Inactive Wars"
+  >
+    <app-war
+      *ngFor="let inactiveWar of game.inactiveWars"
+      [war]="inactiveWar"
+    ></app-war>
+  </app-horizontal-scroll>
+
+  <!-- drawPile + discardPile
+  laws
+  availableMajorOffices
+  Curia:
+    enemyLeadersInCuria
+    senatorsInCuria 
+    destroyedConcessionsInCuria
+  forcePoolLegions
+  forcePoolFleets
+  activeForcesLegions
+  activeForcesFleets
+  stateTreasury
+  unrestLevel
+  landBills: types 1, 2 and 3 -->
+  
   <ion-segment
     class="player-selectors"
+    mode="md"
     [value]="game.humanPlayer"
     (ionChange)="changeSelectedPlayer($event)"
     >
-    <ion-segment-button [value]="game.humanPlayer">
-      <ion-thumbnail>
-        <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-thumbnail>
-    </ion-segment-button>
     <ion-segment-button
-      *ngFor="let neutral of game.neutralPlayers"
-      [value]="neutral"
+      *ngFor="let player of game.players"
+      [value]="player"
     >
-      <ion-thumbnail>
-        <ion-img src="../../assets/images/{{neutral.name}}-symbol.jpg" alt="{{neutral.name}} Player"></ion-img>
-      </ion-thumbnail>
+      <ion-label>{{ player.name }}</ion-label>
+      <ion-label>{{ player.name.substr(0, 3) }}.</ion-label>
     </ion-segment-button>
   </ion-segment>
 
   <div class="selected-player">
     <h2>{{ selectedPlayer.name }}</h2>
     <div>
-      <ion-label>Treasury: {{ selectedPlayer.factionTreasury }} Talents</ion-label>
-      <ion-label>Votes: {{ selectedPlayer.votes }}</ion-label>
-      <ion-label>Dominance: {{ selectedPlayer.factionDominance }}</ion-label>
+      <div>
+        <div><p>{{ selectedPlayer.factionTreasury }}</p></div>
+        <p>TREASURY</p>
+      </div>
+      <div>
+        <div><p>{{ selectedPlayer.votes }}</p></div>
+        <p>VOTES</p>
+      </div>
+      <div>
+        <div><p>{{ selectedPlayer.factionDominance ?? '-' }}</p></div>
+        <p>DOMINANCE</p>
+      </div>
     </div>
-    <h3>Hand Cards</h3>
-    <div>
+    <ion-segment
+      #visiblePlayerCards
+      mode="md"
+      value="senators"
+    >
+      <ion-segment-button value="senators">
+        <ion-label>Senators</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="hand">
+        <ion-label>Hand</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div *ngIf="visiblePlayerCards.value === 'senators'">
+      <app-senator-set
+        *ngFor="let senatorSet of selectedPlayer.senators"
+        [senatorSet]="senatorSet"
+      ></app-senator-set>
+    </div>
+    <div *ngIf="visiblePlayerCards.value === 'hand'">
       <app-faction-card
         *ngFor="let factionCard of selectedPlayer.handCards"
         [factionCard]="factionCard"

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Concession } from '../../models/concession.model';
 import { BasicCard, CardSelectionState } from '../basic-card';
 
@@ -7,14 +7,8 @@ import { BasicCard, CardSelectionState } from '../basic-card';
   templateUrl: './concession.component.html',
   styleUrls: ['./concession.component.scss'],
 })
-export class ConcessionComponent extends BasicCard implements OnChanges {
+export class ConcessionComponent extends BasicCard {
   @Input() concession: Concession;
   @Input() selectable: boolean;
   @Output() selectionToggled = new EventEmitter<CardSelectionState>();
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.selectable?.currentValue) {
-      if (!this.selectable) this.isSelected = false;
-    }
-  }
 }

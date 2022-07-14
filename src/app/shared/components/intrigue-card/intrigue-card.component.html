@@ -4,7 +4,7 @@
     'early-republic-card': isFromEarlyRepublic(intrigueCard),
     'middle-republic-card': isFromMiddleRepublic(intrigueCard),
     'late-republic-card': isFromLateRepublic(intrigueCard),
-    'pointer': selectable,
+    'pointer': selectable || isSelected,
     'selected': isSelected
   }"
   (click)="changeSelectionState(intrigueCard)"

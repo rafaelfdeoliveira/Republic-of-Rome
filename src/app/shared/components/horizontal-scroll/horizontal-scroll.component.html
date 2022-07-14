@@ -1,0 +1,16 @@
+<h3 *ngIf="title">{{ title }}</h3>
+<div class="horizontal-scroll">
+  <ion-icon
+    *ngIf="isOverflowed(scrollArea)"
+    name="chevron-back-outline"
+    (click)="scrollX($event, scrollArea, 'left')"
+  ></ion-icon>
+  <div #scrollArea [ngClass]="{'ion-justify-content-center': !isOverflowed(scrollArea)}">
+    <ng-content></ng-content>
+  </div>
+  <ion-icon
+    *ngIf="isOverflowed(scrollArea)"
+    name="chevron-forward-outline"
+    (click)="scrollX($event, scrollArea, 'right')"
+  ></ion-icon>
+</div>

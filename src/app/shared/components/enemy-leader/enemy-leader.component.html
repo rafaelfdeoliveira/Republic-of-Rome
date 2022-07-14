@@ -4,7 +4,7 @@
     'early-republic-card': isFromEarlyRepublic(enemyLeader),
     'middle-republic-card': isFromMiddleRepublic(enemyLeader),
     'late-republic-card': isFromLateRepublic(enemyLeader),
-    'pointer': selectable,
+    'pointer': selectable || isSelected,
     'selected': isSelected,
     'red-text': enemyLeader.textColor === 'red'
   }"
@@ -12,18 +12,18 @@
 >
   <div>
     <div>
-      <h3 class="bold-text">{{ enemyLeader.name| uppercase }}</h3>
+      <h3>{{ enemyLeader.name| uppercase }}</h3>
       <h6>{{ enemyLeader.matchingWarsCommonName }}</h6>
     </div>
     <p>{{ enemyLeader.timePeriod }}</p>
     <p *ngFor="let text of enemyLeader.specialTexts">{{ text }}</p>
   </div>
   <ion-icon name="person-outline"></ion-icon>
-  <h6 class="bold-text">+{{ enemyLeader.strength }}</h6>
+  <h6>+{{ enemyLeader.strength }}</h6>
   <div>
     <div>
       <div>
-        <h6 class="bold-text">D</h6>
+        <h6>D</h6>
       </div>
       <div>
         <h6>{{ enemyLeader.disaster }}</h6>
@@ -31,7 +31,7 @@
     </div>
     <div>
       <div>
-        <h6 class="bold-text">S</h6>
+        <h6>S</h6>
       </div>
       <div>
         <h6>{{ enemyLeader.standoff }}</h6>

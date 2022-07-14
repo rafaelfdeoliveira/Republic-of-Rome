@@ -1,0 +1,48 @@
+:host {
+    --title-font-size: 3rem;
+    width: 100%;
+}
+
+h3 {
+    text-align: center;
+    font-size: var(--title-font-size);
+    margin-bottom: 5px;
+}
+
+.horizontal-scroll {
+    position: relative;
+    width: 100%;
+
+    > div {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        overflow-x: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    }
+
+    > ion-icon {
+        transform: scale(12);
+        color: rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        cursor: pointer;
+
+        &:first-of-type {
+            position: absolute;
+            top: calc(50% - 1rem);
+            left: calc(2% + 1rem);
+        }
+
+        &:last-of-type {
+            position: absolute;
+            top: calc(50% - 1rem);
+            right: calc(2% + 1rem);
+        }
+    }
+}

@@ -21,7 +21,7 @@ export abstract class BasicCard {
     }
 
     public changeSelectionState(card: Card) {
-      if (!this.selectable) return;
+      if (!this.selectable && !this.isSelected) return;
       this.isSelected = !this.isSelected;
       this.selectionToggled.emit({card, selected: this.isSelected});
     }

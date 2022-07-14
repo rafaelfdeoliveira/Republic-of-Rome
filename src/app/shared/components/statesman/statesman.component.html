@@ -4,14 +4,14 @@
     'early-republic-card': isFromEarlyRepublic(statesman),
     'middle-republic-card': isFromMiddleRepublic(statesman),
     'late-republic-card': isFromLateRepublic(statesman),
-    'pointer': selectable,
+    'pointer': selectable || isSelected,
     'selected': isSelected
   }"
   (click)="changeSelectionState(statesman)"
 >
   <ion-icon name="person-outline"></ion-icon>
   <div>
-    <h3 class="bold-text">{{ statesman.name | uppercase }}</h3>
+    <h3>{{ statesman.name | uppercase }}</h3>
     <h6>[{{ statesman.familyId }}{{ statesman.familyStatesmanLetterId }}]</h6>
   </div>
   <div>
@@ -21,15 +21,15 @@
     <div>
       <div>
         <h6>MIL</h6>
-        <h6 class="bold-text">{{ statesman.id === 135 ? 'd6 + 1' : statesman.military }}</h6>
+        <h6>{{ statesman.id === 135 ? 'd6 + 1' : statesman.military }}</h6>
       </div>
       <div>
         <h6>ORA</h6>
-        <h6 class="bold-text">{{ statesman.oratory }}</h6>
+        <h6>{{ statesman.oratory }}</h6>
       </div>
       <div>
         <h6>LOY</h6>
-        <h6 class="bold-text">
+        <h6>
           {{ statesman.baseLoyalty }}
           <span *ngIf="statesman.hasOpposingStatesmen()">/ 0</span>
         </h6>
@@ -41,15 +41,15 @@
   </div>
   <div>
     <div>
-      <div><h6 class="bold-text">{{ popularity ?? statesman.basePopularity }}</h6></div>
+      <div><h6>{{ popularity ?? statesman.basePopularity }}</h6></div>
       <p>POPULARITY</p>
     </div>
     <div>
-      <div><h6 class="bold-text">{{ influence ?? statesman.baseInfluence }}</h6></div>
+      <div><h6>{{ influence ?? statesman.baseInfluence }}</h6></div>
       <p>INFLUENCE</p>
     </div>
     <div>
-      <div><h6 class="bold-text">{{ knights ?? 0 }}</h6></div>
+      <div><h6>{{ knights ?? 0 }}</h6></div>
       <p>KNIGHTS</p>
     </div>
     <p>{{ statesman.id }}</p>

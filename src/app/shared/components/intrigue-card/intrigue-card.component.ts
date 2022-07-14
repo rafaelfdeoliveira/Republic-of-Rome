@@ -19,9 +19,6 @@ export class IntrigueCardComponent extends BasicCard implements OnChanges {
     if (changes.intrigueCard?.currentValue) {
       this.isAssassin = this.intrigueCard instanceof Assassin;
     }
-    if (changes.selectable?.currentValue) {
-      if (!this.selectable) this.isSelected = false;
-    }
   }
 
 }

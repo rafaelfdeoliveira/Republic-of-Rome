@@ -26,6 +26,7 @@ import { Statesman } from '../models/statesman.model';
 import { NeutralPlayer } from '../models/neutral-player.model';
 import { EraEnds } from '../models/era-ends.model';
 import { Age } from '../models/age.model';
+import { GamePhase } from '../models/game-phase.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ import { Age } from '../models/age.model';
 export class SoloGameService {
 
   public age: Age;
+  public phase: GamePhase;
   public humanPlayer: HumanPlayer;
   public conservativesPlayer: ConservativesPlayer;
   public imperialsPlayer: ImperialsPlayer;
@@ -288,6 +290,7 @@ export class SoloGameService {
 
   private resetGame(playerName: string = 'Player') {
     this.age = null;
+    this.phase = GamePhase.MORTALITY;
     this.humanPlayer = new HumanPlayer(playerName);
     this.conservativesPlayer = new ConservativesPlayer();
     this.imperialsPlayer = new ImperialsPlayer();

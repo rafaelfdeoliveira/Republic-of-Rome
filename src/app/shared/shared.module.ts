@@ -9,6 +9,9 @@ import { IntrigueCardComponent } from './components/intrigue-card/intrigue-card.
 import { ConcessionComponent } from './components/concession/concession.component';
 import { LawComponent } from './components/law/law.component';
 import { EnemyLeaderComponent } from './components/enemy-leader/enemy-leader.component';
+import { HorizontalScrollComponent } from './components/horizontal-scroll/horizontal-scroll.component';
+import { WarComponent } from './components/war/war.component';
+import { WarSetComponent } from './components/war-set/war-set.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +22,16 @@ import { EnemyLeaderComponent } from './components/enemy-leader/enemy-leader.com
     ConcessionComponent,
     LawComponent,
     EnemyLeaderComponent,
+    HorizontalScrollComponent,
+    WarComponent,
+    WarSetComponent,
   ],
   exports: [
     SenatorSetComponent,
     FactionCardComponent,
+    HorizontalScrollComponent,
+    WarComponent,
+    WarSetComponent,
   ],
   imports: [
     CommonModule,

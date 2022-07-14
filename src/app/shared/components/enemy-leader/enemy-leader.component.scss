@@ -33,6 +33,7 @@
         top: 5px;
         right: 5px;
         font-size: 3rem;
+        font-weight: bold;
     }
 
     > div:last-of-type {
@@ -41,6 +42,10 @@
         right: 5px;
         display: flex;
         flex-direction: column;
+
+        h6 {
+            font-weight: bold;
+        }
 
         > div {
             display: flex;
