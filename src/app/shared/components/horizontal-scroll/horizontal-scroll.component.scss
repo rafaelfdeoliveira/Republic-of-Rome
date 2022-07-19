@@ -27,22 +27,27 @@ h3 {
         }
     }
 
-    > ion-icon {
-        transform: scale(12);
-        color: rgba(0, 0, 0, 0.2);
+    > ion-button {
+        --padding-start: 0;
+        --padding-end: 0;
+        --ripple-color: rgba(0, 0, 0, 0.5);
+        margin: 0;
         z-index: 10;
-        cursor: pointer;
 
-        &:first-of-type {
-            position: absolute;
-            top: calc(50% - 1rem);
-            left: calc(2% + 1rem);
+        > ion-icon {
+            color: rgba(0, 0, 0, 0.2);
         }
 
-        &:last-of-type {
+        &.left-btn {
             position: absolute;
-            top: calc(50% - 1rem);
-            right: calc(2% + 1rem);
+            top: calc(50% - 28px);
+            left: 0;
+        }
+
+        &.right-btn {
+            position: absolute;
+            top: calc(50% - 28px);
+            right: 0;
         }
     }
 }

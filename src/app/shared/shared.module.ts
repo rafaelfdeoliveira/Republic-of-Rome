@@ -12,6 +12,7 @@ import { EnemyLeaderComponent } from './components/enemy-leader/enemy-leader.com
 import { HorizontalScrollComponent } from './components/horizontal-scroll/horizontal-scroll.component';
 import { WarComponent } from './components/war/war.component';
 import { WarSetComponent } from './components/war-set/war-set.component';
+import { FamilyComponent } from './components/family/family.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,18 @@ import { WarSetComponent } from './components/war-set/war-set.component';
     HorizontalScrollComponent,
     WarComponent,
     WarSetComponent,
+    FamilyComponent,
   ],
   exports: [
     SenatorSetComponent,
     FactionCardComponent,
+    ConcessionComponent,
+    LawComponent,
+    EnemyLeaderComponent,
     HorizontalScrollComponent,
     WarComponent,
     WarSetComponent,
+    FamilyComponent,
   ],
   imports: [
     CommonModule,

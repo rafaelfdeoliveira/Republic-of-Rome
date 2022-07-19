@@ -6,6 +6,7 @@ import { MenuPageRoutingModule } from './menu-routing.module';
 import { MenuPage } from './menu.page';
 import { SingleplayerMenuComponent } from './components/singleplayer-menu/singleplayer-menu.component';
 import { NewSoloGameSetupComponent } from './components/new-solo-game-setup/new-solo-game-setup.component';
+import { MenuHeaderComponent } from './components/menu-header/menu-header.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { NewSoloGameSetupComponent } from './components/new-solo-game-setup/new-
   declarations: [
     MenuPage,
     SingleplayerMenuComponent,
-    NewSoloGameSetupComponent
+    NewSoloGameSetupComponent,
+    MenuHeaderComponent,
   ]
 })
 export class MenuPageModule {}

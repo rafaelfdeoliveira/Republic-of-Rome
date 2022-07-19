@@ -33,6 +33,7 @@ import { GamePhase } from '../models/game-phase.model';
 })
 export class SoloGameService {
 
+  public name: string;
   public age: Age;
   public phase: GamePhase;
   public humanPlayer: HumanPlayer;
@@ -54,8 +55,8 @@ export class SoloGameService {
   public destroyedConcessionsInCuria: Concession[];
   public forcePoolLegions: Legion[];
   public forcePoolFleets: Fleet[];
-  public activeForcesLegions: Legion[];
-  public activeForcesFleets: Fleet[];
+  public availableLegions: Legion[];
+  public availableFleets: Fleet[];
   private _stateTreasury: number;
   private _unrestLevel: number;
   private _type1LandBillsNum: number;
@@ -63,7 +64,13 @@ export class SoloGameService {
   private _type3LandBillsNum: number;
   private _scenario: Scenario;
 
-  constructor() {}
+  public get availableFreshLegions() {
+    return this.availableLegions.filter(legion => !legion.isVeteran);
+  }
+
+  public get availableVeteranLegions() {
+      return this.availableLegions.filter(legion => legion.isVeteran);
+  }
 
   public get stateTreasury() {
     return this._stateTreasury;
@@ -77,7 +84,7 @@ export class SoloGameService {
     return this._unrestLevel;
   }
 
-  public set unresLevel(newUnrestLevel: number) {
+  public set unrestLevel(newUnrestLevel: number) {
     this._unrestLevel = getPositiveValue(newUnrestLevel);
   }
 
@@ -105,6 +112,10 @@ export class SoloGameService {
     this._type3LandBillsNum = getLimitedPositiveValue(proposedValue, 3);
   }
 
+  public get landBillsNum() {
+    return this._type1LandBillsNum + this._type2LandBillsNum + this._type3LandBillsNum;
+  }
+
   public get players(): Player[] {
     return [this.humanPlayer, this.conservativesPlayer, this.imperialsPlayer, this.plutocratsPlayer, this.populistsPlayer];
   }
@@ -121,9 +132,22 @@ export class SoloGameService {
     this._scenario = scenario;
   }
 
-  public prepareScenario(scenario: Scenario, playerName: string) {
+  public hasVisibleWar(): boolean {
+    return !!this.activeWars.length
+      || !!this.unprosecutedWars.length
+      || !!this.imminentWars.length
+      || !!this.inactiveWars.length;
+  }
+
+  public hasCardInCuria(): boolean {
+    return !!this.enemyLeadersInCuria.length 
+      || !!this.senatorsInCuria.length
+      || !!this.destroyedConcessionsInCuria.length;
+  }
+
+  public prepareScenario(scenario: Scenario, gameName: string, playerName: string) {
     this.resetGame(playerName);
-    this.scenario = scenario;
+    this.name = gameName;
 
     switch(scenario) {
       case Scenario.EARLY_REPUBLIC:
@@ -153,6 +177,7 @@ export class SoloGameService {
   }
 
   private prepareEarlyRepublicScenario() {
+    this.scenario = Scenario.EARLY_REPUBLIC;
     this.age = Age.EARLY_REPUBLIC;
     const earlyRepublicDeck = getEarlyRepublicDeck();
 
@@ -175,7 +200,7 @@ export class SoloGameService {
       new EraEnds()
     ]);
     this.drawPile = [...shuffledLastCards, ...remainingEarlyRepublicDeck];
-    this.activeForcesLegions = this.forcePoolLegions.splice(0, 4);
+    this.availableLegions = this.forcePoolLegions.splice(0, 4);
   }
 
   private prepareMiddleRepublicScenario() {
@@ -288,7 +313,8 @@ export class SoloGameService {
     });
   }
 
-  private resetGame(playerName: string = 'Player') {
+  private resetGame(playerName: string) {
+    this.name = null;
     this.age = null;
     this.phase = GamePhase.MORTALITY;
     this.humanPlayer = new HumanPlayer(playerName);
@@ -310,10 +336,10 @@ export class SoloGameService {
     this.destroyedConcessionsInCuria = [];
     this.forcePoolLegions = getFullLegionPool();
     this.forcePoolFleets = getFullFleetPool();
-    this.activeForcesLegions = [];
-    this.activeForcesFleets = [];
+    this.availableLegions = [];
+    this.availableFleets = [];
     this.stateTreasury = 100;
-    this.unresLevel = 0;
+    this.unrestLevel = 0;
     this.type1LandBillsNum = 0;
     this.type2LandBillsNum = 0;
     this.type3LandBillsNum = 0;

@@ -18,7 +18,7 @@
     <p>{{ enemyLeader.timePeriod }}</p>
     <p *ngFor="let text of enemyLeader.specialTexts">{{ text }}</p>
   </div>
-  <ion-icon name="person-outline"></ion-icon>
+  <ion-icon [src]="imageSrc"></ion-icon>
   <h6>+{{ enemyLeader.strength }}</h6>
   <div>
     <div>
@@ -38,5 +38,5 @@
       </div>
     </div>
   </div>
-  <p>{{ enemyLeader.id }}</p>
+  <p>{{ enemyLeader.id | number: '3.0-0' }}</p>
 </div>

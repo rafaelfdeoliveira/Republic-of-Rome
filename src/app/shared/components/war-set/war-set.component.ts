@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WarSet } from '../../models/war-set.model';
 
 @Component({
@@ -8,5 +8,6 @@ import { WarSet } from '../../models/war-set.model';
 })
 export class WarSetComponent {
   @Input() warSet: WarSet;
-
+  @Input() selectable: boolean;
+  @Output() selectionToggled = new EventEmitter<{warSet: WarSet, selected: boolean}>();
 }

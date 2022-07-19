@@ -149,3 +149,18 @@ export function buildNeutralPlayer(data: any): NeutralPlayer {
             throw new Error('Invalid Neutral Player name');
     }
 }
+
+export function resetNeutralPlayer(neutral: NeutralPlayer): NeutralPlayer {
+    switch(neutral.name) {
+        case 'Conservatives':
+            return new ConservativesPlayer();
+        case 'Imperials':
+            return new ImperialsPlayer();
+        case 'Plutocrats':
+            return new PlutocratsPlayer();
+        case 'Populists':
+            return new PopulistsPlayer();
+        default:
+            throw new Error('Invalid Neutral Player name');
+    }
+}

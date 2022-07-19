@@ -50,9 +50,11 @@ export const getMiddleRepublicDeck = (): Card[] => [
         [75, 124],
         [],
         [ProvinceName.SICILIA],
+        false,
         true,
+        [ProvinceName.SICILIA],
         true,
-        [ProvinceName.SICILIA]
+        ['Eliminates Sicilian Grain Concession.']
     ),
     new War(
         66,
@@ -214,7 +216,11 @@ export const getMiddleRepublicDeck = (): Card[] => [
         [],
         [ProvinceName.GALLIA_NARBONENSIS],
         [ProvinceName.GALLIA_CISALPINA, ProvinceName.ILLYRICUM, ProvinceName.GALLIA_TRANSALPINA],
-        true
+        true,
+        false,
+        [],
+        false,
+        ['Immediately creates Province of Gallia Narbonensis once attacked regardless of battle result.']
     ),
     new Graft(103, Age.MIDDLE_REPUBLIC),
     new InfluencePeddling(104, Age.MIDDLE_REPUBLIC),
@@ -250,9 +256,10 @@ export const getMiddleRepublicDeck = (): Card[] => [
         [73, 123],
         [],
         [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR],
-        true,
         false,
-        [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR]
+        false,
+        [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR],
+        true
     ),
     new Law(
         108,
@@ -265,7 +272,7 @@ export const getMiddleRepublicDeck = (): Card[] => [
     new MurderOfATribune(97, Age.MIDDLE_REPUBLIC),
     new War(
         73,
-        'Numatine War',
+        'Numantine War',
         Age.MIDDLE_REPUBLIC,
         8,
         2,
@@ -278,9 +285,10 @@ export const getMiddleRepublicDeck = (): Card[] => [
         [72, 123],
         [],
         [ProvinceName.HISPANIA_CITERIOR],
-        true,
         false,
-        [ProvinceName.HISPANIA_CITERIOR]
+        false,
+        [ProvinceName.HISPANIA_CITERIOR],
+        true
     ),
     new Bequest(
         106,
@@ -351,9 +359,11 @@ export const getMiddleRepublicDeck = (): Card[] => [
         [74, 124],
         [],
         [ProvinceName.SICILIA],
+        false,
         true,
+        [ProvinceName.SICILIA],
         true,
-        [ProvinceName.SICILIA]
+        ['Eliminates Sicilian Grain Concession.']
     ),
     new Gracchus(
         86,

@@ -5,6 +5,10 @@ ion-content::part(scroll) {
     gap: 10px;
 }
 
+h3 {
+    font-size: 4rem;
+}
+
 ion-segment {
     width: fit-content;
     display: flex;
@@ -17,22 +21,37 @@ ion-segment {
     }
 }
 
-.game-header {
+.game-data-line {
     max-width: 600px;
     width: 100%;
     display: flex;
     justify-content: space-around;
 
     > div {
+        width: 200px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 5px;
-
-        p {
-            font-size: 2.5rem;
-        }
+        font-size: 2.5rem;
+        text-align: center;
     }
+}
+
+.bottom-line {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.category-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
 }
 
 .player-selectors ion-segment-button {

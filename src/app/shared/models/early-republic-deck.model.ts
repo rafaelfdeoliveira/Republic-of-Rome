@@ -134,7 +134,11 @@ export const getEarlyRepublicDeck = (): Card[] => [
         [1, 69],
         [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR],
         [ProvinceName.GALLIA_CISALPINA, ProvinceName.GALLIA_NARBONENSIS],
-        true
+        true,
+        false,
+        [],
+        false,
+        ['If active roll 1d6 at the end of every Forum Phase to destroy a Tax Farmer until defeated.']
     ),
     new Family(22, 'Acilius', Age.EARLY_REPUBLIC, 12, 2, 2, 7, 3),
     new Concession(

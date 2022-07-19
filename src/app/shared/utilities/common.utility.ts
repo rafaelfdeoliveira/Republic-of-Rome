@@ -26,3 +26,22 @@ export const getLimitedPositiveValue = (proposedValue: number, maxAllowedValue: 
     if (proposedValue > maxAllowedValue) return maxAllowedValue;
     return proposedValue;
 }
+
+export const getNumberOrderingSuffix = (num: number): string => {
+    if (num === 1) return 'st';
+    if (num === 2) return 'nd';
+    if (num === 3) return 'rd';
+    return 'th';
+}
+
+export const getListItemsText = (itemsList: string[]): string => {
+    if (!itemsList.length) return '';
+    if (itemsList.length === 1) return itemsList[0];
+    
+    let text = itemsList.slice(0, -1).reduce((acc, item) => {
+        return acc + ', ' + item;
+    });
+    const lastItem = itemsList.slice(-1)[0];
+    text += ` and ${lastItem}`;
+    return text;
+}

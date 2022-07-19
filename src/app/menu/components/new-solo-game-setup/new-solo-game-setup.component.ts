@@ -22,7 +22,7 @@ export class NewSoloGameSetupComponent {
   public async createNewSoloGame(scenario: Scenario) {
     const alert = await this.alertCtrl.create({
       header: `${scenario} Scenario`,
-      message: 'Enter your name',
+      message: 'Insert a name to the game and to the player',
       keyboardClose: false,
       backdropDismiss: false,
       buttons: [
@@ -34,20 +34,28 @@ export class NewSoloGameSetupComponent {
 
           text: 'Start Game',
           handler: data => {
-            const playerName = data.playerName.trim();
-            if (playerName) {
-              this.soloGameService.prepareScenario(scenario, playerName);
+            const gameName: string = data.gameName.trim();
+            const playerName: string = data.playerName.trim();
+            if (gameName && playerName) {
+              this.soloGameService.prepareScenario(scenario, gameName, playerName);
               return true;
             }
             return false;
           }
         }
       ],
-      inputs: [{
-        name: 'playerName',
-        placeholder: 'Player name...',
-        attributes: { maxlength: 10 },
-      }]
+      inputs: [
+        {
+          name: 'gameName',
+          placeholder: 'Game name...',
+          attributes: { maxlength: 10 },
+        },
+        {
+          name: 'playerName',
+          placeholder: 'Player name...',
+          attributes: { maxlength: 10 },
+        }
+      ]
     });
 
     await alert.present();

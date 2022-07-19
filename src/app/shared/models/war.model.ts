@@ -1,11 +1,17 @@
 import { Age } from "./age.model";
 import { ForumCard } from "./forum-card.model";
 import { ProvinceName } from "./province-name.model";
+import { getListItemsText, getNumberOrderingSuffix } from "../utilities/common.utility";
 
 export class War extends ForumCard {
 
+    public navalVictory = false;
     public readonly warNumber: number;
     public readonly maxWarNumber: number;
+    public readonly subtitle: string;
+    public readonly createdProvincesText: string;
+    public readonly attackedProvincesText: string;
+    public readonly revoltedProvincesText: string;
 
     constructor(
         id: number,
@@ -24,15 +30,21 @@ export class War extends ForumCard {
         public readonly attackedProvinces: ProvinceName[] = [],
         public readonly armamentIcon: boolean = false,
         public readonly droughtIcon: boolean = false,
-        public readonly revoltedProvinces: ProvinceName[] = []
+        public readonly revoltedProvinces: ProvinceName[] = [],
+        public readonly startAsRevolt: boolean = false,
+        public readonly specialTexts: string[] = []
     ) {
         super(id, name, age);
         this.warNumber = this.getWarNumber();
         this.maxWarNumber = this.matchingWarsIds.length + 1;
+        this.subtitle = this.getSubtitle();
+        this.createdProvincesText = getListItemsText(this.createdProvinces);
+        this.attackedProvincesText = getListItemsText(this.attackedProvinces);
+        this.revoltedProvincesText = getListItemsText(this.revoltedProvinces);
     }
 
     public static Build(data: any): War {
-        return new War(
+        const war = new War(
             data.id,
             data.name,
             data.age,
@@ -49,8 +61,12 @@ export class War extends ForumCard {
             data.attackedProvinces,
             data.armamentIcon,
             data.droughtIcon,
-            data.revoltedProvinces
+            data.revoltedProvinces,
+            data.startAsRevolt,
+            data.specialTexts
         );
+        war.navalVictory = data.navalVictory;
+        return war;
     }
 
     private getWarNumber(): number {
@@ -58,4 +74,8 @@ export class War extends ForumCard {
         return orderedMatchingWarsIds.indexOf(this.id) + 1;
     }
 
+    private getSubtitle(): string {
+        if (!this.matchingWarsCommonName) return '';
+        return `${this.warNumber}${getNumberOrderingSuffix(this.warNumber)} of ${this.maxWarNumber} ${this.matchingWarsCommonName}`;
+    }
 }

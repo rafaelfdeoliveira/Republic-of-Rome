@@ -137,7 +137,14 @@ export const getLateRepublicDeck = (): Card[] => [
         [112, 113],
         [ProvinceName.SYRIA, ProvinceName.BITHYNIA],
         [ProvinceName.SYRIA, ProvinceName.ASIA],
-        true
+        true,
+        false,
+        [],
+        false,
+        [
+            'Victory creates Province of Syria and the Developed Province of Bithynia.',
+            'If the Province of Bithynia exists but is undeveloped, victory automatically develops the Province. No Influence is awarded for development in this way.'
+        ]
     ),
     new War(
         118,
@@ -155,7 +162,10 @@ export const getLateRepublicDeck = (): Card[] => [
         [],
         [],
         true,
-        true
+        true,
+        [],
+        false,
+        ['Eliminates Aegyptian Grain Concession.']
     ),
     new Assassin(149, Age.LATE_REPUBLIC),
     new Assassin(148, Age.LATE_REPUBLIC),
@@ -214,7 +224,11 @@ export const getLateRepublicDeck = (): Card[] => [
         [74, 75],
         [],
         [],
-        true
+        true,
+        false,
+        [],
+        false,
+        ['If active roll 1d6 at the end of every Forum Phase to destroy a Tax Farmer until defeated.']
     ),
     new Graft(145, Age.LATE_REPUBLIC),
     new InfluencePeddling(150, Age.LATE_REPUBLIC),
@@ -388,9 +402,10 @@ export const getLateRepublicDeck = (): Card[] => [
         [72, 73],
         [],
         [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR],
-        true,
         false,
-        [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR]
+        false,
+        [ProvinceName.HISPANIA_CITERIOR, ProvinceName.HISPANIA_ULTERIOR],
+        true
     ),
     new War(
         119,
@@ -407,7 +422,14 @@ export const getLateRepublicDeck = (): Card[] => [
         [],
         [],
         [],
-        true
+        true,
+        false,
+        [],
+        false,
+        [
+            'Activates all Inactive Wars and Revolts that are part of a Matching War Set.',
+            'Does not increase the Strength of any Matching Wars.'
+        ]
     ),
     new EnemyLeader(
         136,

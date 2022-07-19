@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SoloGameService } from '../shared/services/solo-game.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class MenuPage {
 
-  constructor() {}
+  constructor(
+    private soloGame: SoloGameService
+  ) {}
+
+  public isSoloGameLoaded(): boolean {
+    return !!this.soloGame.scenario;
+  }
 
 }

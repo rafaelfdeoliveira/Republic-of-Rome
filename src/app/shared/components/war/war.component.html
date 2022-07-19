@@ -1,0 +1,105 @@
+<div
+  class="war card"
+  [ngClass]="{
+    'early-republic-card': isFromEarlyRepublic(war),
+    'middle-republic-card': isFromMiddleRepublic(war),
+    'late-republic-card': isFromLateRepublic(war),
+    'pointer': selectable || isSelected,
+    'selected': isSelected
+  }"
+  (click)="changeSelectionState(war)"
+>
+  <div>
+    <div>
+      <div>
+        <h3>{{ war.name| uppercase }}</h3>
+        <ion-icon
+          *ngIf="war.droughtIcon"
+          src="../../../../assets/images/drought.svg"
+        ></ion-icon>
+      </div>
+      <h6>{{ war.subtitle }}</h6>
+    </div>
+    <div>
+      <div>
+        <p>{{ war.timePeriod }}</p>
+        <ion-icon
+          *ngIf="war.armamentIcon"
+          src="../../../../assets/images/roman-shield.svg"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="war.startAsRevolt"
+          src="../../../../assets/images/shield-question.svg"
+        ></ion-icon>
+      </div>
+    </div>
+    <div>
+      <p *ngFor="let text of war.specialTexts">{{ text }}</p>
+      <p *ngIf="!war.armamentIcon && !war.startAsRevolt">{{ inactiveWarText }}</p>
+      <p *ngIf="war.revoltedProvinces.length">{{ revoltedProvincesText }}</p>
+      <p *ngIf="war.droughtIcon">Creates of worsens Drought conditions even if Inactive.</p>
+      <p *ngIf="war.createdProvinces.length && ![70, 114].includes(war.id)">{{ createdProvincesText }}</p>
+    </div>
+  </div>
+  <div>
+    <div>
+      <ion-icon src="../../../../assets/images/crossed-swords.svg"></ion-icon>
+      <div>
+        <h6>{{ currentLandStrength }}</h6>
+      </div>
+    </div>
+    <div>
+      <ion-icon src="../../../../assets/images/anchor.svg"></ion-icon>
+      <div>
+        <h6>{{ war.fleetSupport }}</h6>
+      </div>
+    </div>
+    <div>
+      <ion-icon src="../../../../assets/images/trireme.svg"></ion-icon>
+      <div>
+        <h6>{{ currentFleetStrength || '-' }}</h6>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <h6>D</h6>
+        </div>
+        <div>
+          <h6>
+            {{ war.disasters[0] }}
+            <span *ngIf="war.disasters.length > 1">/ {{ war.disasters[1] }}</span>
+          </h6>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h6>S</h6>
+        </div>
+        <div>
+          <h6>
+            {{ war.standoffs[0] }}
+            <span *ngIf="war.standoffs.length > 1">/ {{ war.standoffs[1] }}</span>
+          </h6>
+        </div>
+      </div>
+    </div>
+    <div [ngStyle]="{ 'visibility': war.spoils ? 'visible' : 'hidden' }">
+      <h6>{{ war.spoils }}</h6>
+    </div>
+  </div>
+  <ion-icon
+    *ngIf="!war.navalVictory"
+    src="../../../../assets/images/helmet.svg"
+  ></ion-icon>
+  <ion-thumbnail *ngIf="war.navalVictory">
+    <ion-img src="../../../../assets/images/naval-victory.webp"></ion-img>
+  </ion-thumbnail>
+  <p
+    *ngIf="war.attackedProvincesText"
+    class="attacked-provinces"
+  >
+    Attacks: {{ war.attackedProvincesText }}
+  </p>
+  <p class="id">{{ war.id | number: '3.0-0' }}</p>
+</div>

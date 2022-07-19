@@ -9,7 +9,7 @@
   }"
   (click)="changeSelectionState(statesman)"
 >
-  <ion-icon name="person-outline"></ion-icon>
+  <ion-icon src="../../../../assets/images/senator.svg"></ion-icon>
   <div>
     <h3>{{ statesman.name | uppercase }}</h3>
     <h6>[{{ statesman.familyId }}{{ statesman.familyStatesmanLetterId }}]</h6>
@@ -52,6 +52,6 @@
       <div><h6>{{ knights ?? 0 }}</h6></div>
       <p>KNIGHTS</p>
     </div>
-    <p>{{ statesman.id }}</p>
+    <p>{{ statesman.id | number: '3.0-0' }}</p>
   </div>
 </div>

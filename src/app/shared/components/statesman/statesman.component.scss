@@ -75,18 +75,18 @@
                 border: 1px solid rgba(255, 0, 0, 0.3);
                 text-align: center;
             }
-        }
 
-        > div:first-of-type {
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-        }
+            &:first-of-type {
+                position: absolute;
+                bottom: 5px;
+                left: 5px;
+            }
 
-        > div:last-of-type {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
+            &:last-of-type {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+            }
         }
 
         > p {

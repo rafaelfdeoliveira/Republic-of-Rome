@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-horizontal-scroll',
@@ -8,8 +8,20 @@ import { Component, Input } from '@angular/core';
 export class HorizontalScrollComponent {
   @Input() title: string;
 
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
+
   public isOverflowed(element: Element): boolean {
     return element.clientWidth < element.scrollWidth;
+  }
+
+  public isAtScrollStart(element: Element): boolean {
+    return element.scrollLeft === 0;
+  }
+
+  public isAtScrollEnd(element: Element): boolean {
+    return element.scrollLeft === element.scrollWidth - element.clientWidth;
   }
 
   public scrollX(ev: Event, element: Element, direction: 'left' | 'right') {
@@ -21,5 +33,6 @@ export class HorizontalScrollComponent {
       left: scrollLength,
       behavior: 'smooth'
     });
+    setTimeout(() => this.changeDetectorRef.detectChanges(), 500);
   }
 }

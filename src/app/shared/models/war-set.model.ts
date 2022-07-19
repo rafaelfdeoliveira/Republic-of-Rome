@@ -48,7 +48,7 @@ export class WarSet {
 
     public get fleetStrength(): number {
         const wars = this.wars;
-        if (!wars.length) return 0;
+        if (!wars.length || wars[0].navalVictory) return 0;
         return wars[0].fleetStrength * wars.length + this.leadersStrength;
     }
 

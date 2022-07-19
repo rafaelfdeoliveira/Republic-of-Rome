@@ -1,5 +1,21 @@
+<ion-header mode="ios">
+  <ion-toolbar color="transparent">
+    <ion-title>{{ game.name }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/menu" routerDirection="back">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="caret-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <div class="game-header">
+  <div class="game-data-line">
     <div>
       <p>AGE</p>
       <p>{{ game.age }}</p>
@@ -14,60 +30,155 @@
     </div>
   </div>
 
-  <app-horizontal-scroll
-    *ngIf="game.activeWars.length"
-    title="Active Wars"
+  <div class="game-data-line ion-margin-vertical">
+    <div>
+      <p>DRAW <br> PILE</p>
+      <p>({{ game.drawPile.length }})</p>
+    </div>
+    <div>
+      <p>STATE <br> TREASURY</p>
+      <p>{{ game.stateTreasury }} Talents</p>
+    </div>
+    <div>
+      <p>DISCARD <br> PILE</p>
+      <p>({{ game.discardPile.length }})</p>
+    </div>
+  </div>
+
+  <div class="game-data-line">
+    <div>
+      <p>AVAILABLE <br> OFFICES</p>
+      <p>({{ game.availableMajorOffices.length }})</p>
+    </div>
+    <div>
+      <p>UNREST <br> LEVEL</p>
+      <p>{{ game.unrestLevel }}</p>
+    </div>
+    <div>
+      <p>LAND <br> BILLS</p>
+      <p>({{ game.landBillsNum }})</p>
+    </div>
+  </div>
+
+  <h3>Reserve Forces</h3>
+  <div class="game-data-line bottom-line">
+    <div>
+      <p>Legions</p>
+      <p>({{ game.forcePoolLegions.length }})</p>
+    </div>
+    <div>
+      <p>Fleets</p>
+      <p>({{ game.forcePoolFleets.length }})</p>
+    </div>
+  </div>
+
+  <h3>Available Forces</h3>
+  <div class="game-data-line bottom-line">
+    <div>
+      <p>Fresh <br> Legions</p>
+      <p>({{ game.availableFreshLegions.length }})</p>
+    </div>
+    <div>
+      <p>Veteran <br> Legions</p>
+      <p>({{ game.availableVeteranLegions.length }})</p>
+    </div>
+    <div>
+      <p>Available <br> Fleets</p>
+      <p>({{ game.availableFleets.length }})</p>
+    </div>
+  </div>
+
+  <div
+    *ngIf="game.hasVisibleWar()"
+    class="category-wrapper"
   >
-    <app-war-set
-      *ngFor="let activeWar of game.activeWars"
-      [warSet]="activeWar"
-    ></app-war-set>
-  </app-horizontal-scroll>
+    <h3>Wars</h3>
+    <app-horizontal-scroll
+      *ngIf="game.activeWars.length"
+      title="Active Wars"
+    >
+      <app-war-set
+        *ngFor="let activeWar of game.activeWars"
+        [warSet]="activeWar"
+      ></app-war-set>
+    </app-horizontal-scroll>
+
+    <app-horizontal-scroll
+      *ngIf="game.unprosecutedWars.length"
+      title="Unprosecuted Wars"
+    >
+      <app-war-set
+        *ngFor="let unprosecutedWar of game.unprosecutedWars"
+        [warSet]="unprosecutedWar"
+      ></app-war-set>
+    </app-horizontal-scroll>
+
+    <app-horizontal-scroll
+      *ngIf="game.imminentWars.length"
+      title="Imminent Wars"
+    >
+      <app-war
+        *ngFor="let imminentWar of game.imminentWars"
+        [war]="imminentWar"
+      ></app-war>
+    </app-horizontal-scroll>
+
+    <app-horizontal-scroll
+      *ngIf="game.inactiveWars.length"
+      title="Inactive Wars"
+    >
+      <app-war
+        *ngFor="let inactiveWar of game.inactiveWars"
+        [war]="inactiveWar"
+      ></app-war>
+    </app-horizontal-scroll>
+  </div>
+
+  <div
+    *ngIf="game.hasCardInCuria()"
+    class="category-wrapper"
+  >
+    <h3>Curia</h3>
+    <app-horizontal-scroll
+      *ngIf="game.enemyLeadersInCuria.length"
+      title="Enemy Leaders"
+    >
+      <app-enemy-leader
+        *ngFor="let enemyLeader of game.enemyLeadersInCuria"
+        [enemyLeader]="enemyLeader"
+      ></app-enemy-leader>
+    </app-horizontal-scroll>
+
+    <app-horizontal-scroll
+      *ngIf="game.senatorsInCuria.length"
+      title="Repopulating Rome"
+    >
+      <app-family
+        *ngFor="let family of game.senatorsInCuria"
+        [family]="family"
+      ></app-family>
+    </app-horizontal-scroll>
+
+    <app-horizontal-scroll
+      *ngIf="game.destroyedConcessionsInCuria.length"
+      title="Destroyed Concessions"
+    >
+      <app-concession
+        *ngFor="let concession of game.destroyedConcessionsInCuria"
+        [concession]="concession"
+      ></app-concession>
+    </app-horizontal-scroll>
+  </div>
 
   <app-horizontal-scroll
-    *ngIf="game.unprosecutedWars.length"
-    title="Unprosecuted Wars"
+    *ngIf="game.laws.length"
+    title="Laws"
   >
-    <app-war-set
-      *ngFor="let unprosecutedWar of game.unprosecutedWars"
-      [warSet]="unprosecutedWar"
-    ></app-war-set>
+    <app-law
+      *ngFor="let law of game.laws"
+      [law]="law"
+    ></app-law>
   </app-horizontal-scroll>
-
-  <app-horizontal-scroll
-    *ngIf="game.imminentWars.length"
-    title="Imminent Wars"
-  >
-    <app-war
-      *ngFor="let imminentWar of game.imminentWars"
-      [war]="imminentWar"
-    ></app-war>
-  </app-horizontal-scroll>
-
-  <app-horizontal-scroll
-    *ngIf="game.inactiveWars.length"
-    title="Inactive Wars"
-  >
-    <app-war
-      *ngFor="let inactiveWar of game.inactiveWars"
-      [war]="inactiveWar"
-    ></app-war>
-  </app-horizontal-scroll>
-
-  <!-- drawPile + discardPile
-  laws
-  availableMajorOffices
-  Curia:
-    enemyLeadersInCuria
-    senatorsInCuria 
-    destroyedConcessionsInCuria
-  forcePoolLegions
-  forcePoolFleets
-  activeForcesLegions
-  activeForcesFleets
-  stateTreasury
-  unrestLevel
-  landBills: types 1, 2 and 3 -->
   
   <ion-segment
     class="player-selectors"
